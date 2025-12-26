@@ -1,0 +1,9 @@
+[19-Dec-2025 13:06:06 Europe/Berlin] CSRF validation failed for admin login from IP ::1, user provided=adminwfwe
+[19-Dec-2025 13:06:12 Europe/Berlin] CSRF validation failed for admin login from IP ::1, user provided=adminwfwe
+[19-Dec-2025 13:06:31 Europe/Berlin] CSRF validation failed for admin login from IP ::1, user provided=admin
+[19-Dec-2025 13:06:42 Europe/Berlin] CSRF validation failed for admin login from IP ::1, user provided=admin
+[19-Dec-2025 13:07:22 Europe/Berlin] CSRF validation failed for admin login from IP ::1, user provided=admin
+[19-Dec-2025 13:07:31 Europe/Berlin] CSRF validation failed for admin login from IP ::1, user provided=admin
+[19-Dec-2025 18:39:55 Europe/Berlin] ImageKit credentials not configured - set IMAGEKIT_PUBLIC_KEY, IMAGEKIT_PRIVATE_KEY, IMAGEKIT_URL
+[19-Dec-2025 18:47:33 Europe/Berlin] ImageKit credentials not configured - set IMAGEKIT_PUBLIC_KEY, IMAGEKIT_PRIVATE_KEY, IMAGEKIT_URL
+[19-Dec-2025 18:47:47 Europe/Berlin] ImageKit credentials not configured - set IMAGEKIT_PUBLIC_KEY, IMAGEKIT_PRIVATE_KEY, IMAGEKIT_URL
