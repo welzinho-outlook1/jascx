@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUVELE - Moda Feminina</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            background: #faf9f6;
+            font-family: sans-serif;
+        }
+
+        .search-bar--hidden {
+            display: none !important;
+        }
+    </style>
+    <link rel="shortcut icon" href="assets/images/site-icon/fav.ico" />
+    <!-- moved: load Font Awesome before local CSS so custom CSS can override styling -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/styles/base-fundamental.css">
+    <link rel="stylesheet" href="assets/styles/pagination(globalstyle).css">
+    <link rel="stylesheet" href="assets/styles/footer(global).css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap"
+        rel="stylesheet">
+    <style>
+        .categorias-section {
+            padding: 32px 0 0 0;
+            text-align: center;
+        }
+
+        .categorias-title {
+            font-size: 32px;
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 8px;
+            color: #272727;
+            font-weight: 300;
+            margin-inline: 5px;
+        }
+
+        .categorias-desc {
+            font-size: 0.9rem;
+            margin-bottom: 32px;
+            color: #444;
+            font-family: 'Arimo', sans-serif;
+            margin-inline: 10px;
+        }
+
+        .categorias-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 700px;
+            margin: 0 auto;
+            padding-left: 16px;
+            padding-right: 16px;
+            box-sizing: border-box;
+        }
+
+        .categoria-card {
+            background: #fafbfc;
+            border: 1px solid #5d88c0;
+            border-radius: 18px;
+            box-shadow: 0 2px 12px 0 #0002;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 140px;
+            justify-content: center;
+            transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+            cursor: pointer;
+        }
+
+        .categoria-img {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+            margin-bottom: 12px;
+        }
+
+        .categoria-nome {
+            font-size: 1.25rem;
+            font-weight: 500;
+            font-family: 'Montserrat', 'Arimo', sans-serif;
+            text-align: center;
+            width: 100%;
+            color: #222;
+            letter-spacing: 0.5px;
+            padding: 0 12px;
+            /* Remove margin-top */
+            margin-top: 0;
+            /* Minimalista: sem decoração extra */
+        }
+
+        .breadcrumb-bg {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            background: #fafafa;
+            border: 1px solid #dbdbdb;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        @media (max-width: 900px) {
+            .breadcrumb-bg {
+                width: 100%;
+                left: 0;
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+
+    </header>
+    <form id="siteSearch" class="search-bar search-bar--hidden" role="search" aria-label="Pesquisar no site"
+        onsubmit="return false;">
+        <input id="searchInput" type="search" placeholder="Pesquisar..." aria-label="Pesquisar" />
+        <button id="searchSubmit" type="button" aria-label="Buscar">Buscar</button>
+        <div id="searchResults" class="search-results" role="listbox" aria-hidden="true"></div>
+    </form>
+    <main>
+        <!-- Breadcrumb -->
+        <div class="breadcrumb-bg">
+            <p style="color: #002a47; margin: 0; font-size: 14px; padding: 10px 24px; ">
+                <a href="index.html" style="color: #005999;">Início</a> / Categorias
+            </p>
+        </div>
+        <section class="categorias-section">
+            <h1 class="categorias-title">Todas as categorias</h1>
+            <p class="categorias-desc">
+                Explore nossa seleção completa e encontre exatamente o que você procura.
+                Qualidade e variedade em um só lugar!
+            </p>
+            <div class="categorias-grid" id="categoriasGrid">
+                <!-- Containers de categorias serão gerados aqui -->
+            </div>
+            <div class="pagination" style="margin-top:24px; text-align:center;"></div>
+        </section>
+    </main>
+    <script src="./assets/javascript/pr-def.js"></script>
+    <script src="https://unpkg.com/dompurify@2.3.10/dist/purify.min.js"></script>
+    <script src="./assets/javascript/xss.js"></script>
+    <script src="./assets/javascript/nav(globalcode).js"></script>
+    <script src="./assets/javascript/nav.js"></script>
+    <script src="./assets/javascript/footer(global).js"></script>
+    <script>
+        // Função para gerar cor HSL distinta por índice
+        function getDistinctColor(index, total) {
+            const hue = Math.round((360 / total) * index);
+            return `hsl(${hue}, 60%, 60%)`;
+        }
+
+        // Paginação de categorias
+        const CATEGORIAS_POR_PAGINA = 6;
+        let categoriasData = [];
+        let paginaAtual = 1;
+
+        function renderCategoriasPagina(pagina) {
+            const grid = document.getElementById('categoriasGrid');
+            grid.innerHTML = '';
+            const total = categoriasData.length;
+            const inicio = (pagina - 1) * CATEGORIAS_POR_PAGINA;
+            const fim = Math.min(inicio + CATEGORIAS_POR_PAGINA, total);
+            for (let idx = inicio; idx < fim; idx++) {
+                const cat = categoriasData[idx];
+                const card = document.createElement('div');
+                card.className = 'categoria-card';
+                card.style.borderColor = getDistinctColor(idx, total);
+                const nome = (cat.nome || '').trim();
+                SafeDOM.setHTML(card, `<span class="categoria-nome">${SafeDOM.escapeHtml(nome)}</span>`);
+                // Redirecionamento ao clicar, igual categorias0x1.js
+                card.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    window.location.href = `search.html?q=${encodeURIComponent(nome)}&categoria=1`;
+                });
+                grid.appendChild(card);
+            }
+            renderPaginacao(pagina, Math.ceil(total / CATEGORIAS_POR_PAGINA));
+        }
+
+        function renderPaginacao(pagina, totalPaginas) {
+            const pagDiv = document.querySelector('.pagination');
+            pagDiv.innerHTML = '';
+            if (totalPaginas <= 1) return;
+            const anterior = document.createElement('button');
+            anterior.textContent = '< Anterior';
+            anterior.className = 'pagination-btn';
+            anterior.disabled = pagina === 1;
+            anterior.onclick = () => {
+                if (pagina > 1) {
+                    paginaAtual--;
+                    renderCategoriasPagina(paginaAtual);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            };
+            const proximo = document.createElement('button');
+            proximo.textContent = 'Próximo >';
+            proximo.className = 'pagination-btn';
+            proximo.disabled = pagina === totalPaginas;
+            proximo.onclick = () => {
+                if (pagina < totalPaginas) {
+                    paginaAtual++;
+                    renderCategoriasPagina(paginaAtual);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            };
+            const info = document.createElement('span');
+            info.className = 'pagination-info';
+            info.textContent = ` ${pagina} de ${totalPaginas} `;
+            pagDiv.appendChild(anterior);
+            pagDiv.appendChild(info);
+            pagDiv.appendChild(proximo);
+        }
+
+        fetch('data/categorias.json')
+            .then(response => response.json())
+            .then(data => {
+                categoriasData = data.categorias;
+                paginaAtual = 1;
+                renderCategoriasPagina(paginaAtual);
+            });
+
+        // Remover ocultação da barra de pesquisa após o carregamento dos estilos
+        window.addEventListener('load', function () {
+            document.getElementById('siteSearch').classList.remove('search-bar--hidden');
+        });
+        function toggleMenu() {
+            const nav = document.querySelector('.nav');
+            if (nav) {
+                nav.classList.toggle('nav--open');
+            }
+        }
+    </script>
+</body>
+
+</html>

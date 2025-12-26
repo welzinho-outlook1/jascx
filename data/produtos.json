@@ -1,0 +1,338 @@
+[
+    {
+        "id": 2,
+        "nome": "Vestido Floral Primavera",
+        "descricao": "Vestido leve com estampa floral, perfeito para ocasiões casuais e festas de verão.",
+        "preco": 199.90,
+        "imagem": "https://weslleykholsinho.github.io/juvele-imd/cp000x01.png",
+        "imagens": [
+            "https://weslleykholsinho.github.io/juvele-imd/cp000x01.png"
+        ],
+        "destaque": true,
+        "categoria": [
+            "Vestidos",
+            "#Promoções"
+        ],
+        "desconto": 15,
+        "publicado-em": "2025-11-17",
+        "tamanhos": [
+            "P",
+            "M",
+            "G",
+            "GG"
+        ],
+        "cores": [
+            "Vermelho"
+        ],
+        "disponibilidade": false,
+        "parcelamento": {
+            "parcelado-em-ate": 4,
+            "sem-juros-ate": 3
+        },
+        "max-de-pedido": 4
+    },
+    {
+        "id": 1,
+        "nome": "Blusa de Linho Bege",
+        "descricao": "Blusa feminina em linho com corte oversized, confortável e elegante.",
+        "preco": 129.50,
+        "imagem": "https://ik.imagekit.io/8wd5xavoy/cp000x02_11zon.webp?updatedAt=1765718791220&ik-s=1043a44696867560cf97ac16350cc671e254dcaa",
+        "imagens": [
+            "https://ik.imagekit.io/8wd5xavoy/cp000x02_11zon.webp?updatedAt=1765718791220&ik-s=1043a44696867560cf97ac16350cc671e254dcaa",
+            "https://via.placeholder.com/600x800?text=Blusa+1+Vista+2"
+        ],
+        "destaque": true,
+        "categoria": [
+            "Blusas"
+        ],
+        "publicado-em": "2025-12-22",
+        "tamanhos": [
+            "P",
+            "M",
+            "G",
+            "GG"
+        ],
+        "cores": [
+            "Bege",
+            "Preto"
+        ],
+        "disponibilidade": true,
+        "parcelamento": {
+            "parcelado-em-ate": 5,
+            "sem-juros-ate": 4
+        },
+        "max-de-pedido": 5
+    },
+    {
+        "id": 3,
+        "nome": "Saia Midi Plissada",
+        "descricao": "Saia midi plissada com caimento fluido. Combine com salto ou tênis.",
+        "preco": 49.00,
+        "imagem": "https://weslleykholsinho.github.io/juvele-imd/cp000x03.png",
+        "imagens": [
+            "https://weslleykholsinho.github.io/juvele-imd/cp000x03.png",
+            "https://via.placeholder.com/600x800?text=Saia+1+Vista+2"
+        ],
+        "destaque": true,
+        "categoria": [
+            "Saias",
+            "#Promoções"
+        ],
+        "desconto": 40,
+        "publicado-em": "2025-12-17",
+        "tamanhos": [
+            "P",
+            "M",
+            "G",
+            "GG"
+        ],
+        "cores": [
+            "Rosa",
+            "Preto"
+        ],
+        "disponibilidade": true,
+        "parcelamento": {
+            "parcelado-em-ate": 3,
+            "sem-juros-ate": 2
+        },
+        "max-de-pedido": 5
+    },
+    {
+        "id": 4,
+        "nome": "Calça Jeans Skinny",
+        "descricao": "Calça jeans skinny com lavagem escura, ideal para looks do dia a dia.",
+        "preco": 179.90,
+        "imagem": "https://weslleykholsinho.github.io/juvele-imd/cp000x04.png",
+        "imagens": [
+            "https://weslleykholsinho.github.io/juvele-imd/cp000x04.png",
+            "https://via.placeholder.com/600x800?text=Calca+1+Vista+2"
+        ],
+        "destaque": true,
+        "categoria": [
+            "Calças"
+        ],
+        "publicado-em": "2025-12-17",
+        "tamanhos": [
+            "P",
+            "M",
+            "G",
+            "GG"
+        ],
+        "cores": [
+            "Azul Escuro",
+            "Preto"
+        ],
+        "disponibilidade": true,
+        "parcelamento": {
+            "parcelado-em-ate": 6,
+            "sem-juros-ate": 5
+        },
+        "max-de-pedido": 5
+    },
+    {
+        "id": "54X609",
+        "nome": "Jaqueta de Couro Sintético",
+        "descricao": "Jaqueta de couro sintético preta, estilo biker, perfeita para adicionar atitude ao seu visual.",
+        "preco": 249.90,
+        "imagem": "https://weslleykholsinho.github.io/juvele-imd/cp000x05.png",
+        "imagens": [
+            "https://weslleykholsinho.github.io/juvele-imd/cp000x05.png",
+            "https://via.placeholder.com/600x800?text=Jaqueta+1+Vista+2"
+        ],
+        "destaque": true,
+        "categoria": [
+            "Jaquetas"
+        ],
+        "publicado-em": "2025-12-17",
+        "tamanhos": [
+            "P",
+            "M",
+            "G",
+            "GG"
+        ],
+        "cores": [
+            "Preto",
+            "Marrom"
+        ],
+        "disponibilidade": true,
+        "parcelamento": {
+            "parcelado-em-ate": 5,
+            "sem-juros-ate": 4
+        },
+        "max-de-pedido": 5
+    },
+    {
+        "id": 6,
+        "nome": "Macacão Pantacourt",
+        "descricao": "Macacão pantacourt em tecido leve, com cinto para marcar a cintura.",
+        "preco": 219.00,
+        "imagem": "https://weslleykholsinho.github.io/juvele-imd/cp000x06.png",
+        "imagens": [
+            "https://weslleykholsinho.github.io/juvele-imd/cp000x06.png",
+            "https://via.placeholder.com/600x800?text=Macacao+1+Vista+2"
+        ],
+        "destaque": true,
+        "categoria": [
+            "Macacões",
+            "#Promoções"
+        ],
+        "desconto": 10,
+        "publicado-em": "2025-12-17",
+        "tamanhos": [
+            "P",
+            "M",
+            "G",
+            "GG"
+        ],
+        "cores": [
+            "Azul",
+            "Preto"
+        ],
+        "disponibilidade": true,
+        "parcelamento": {
+            "parcelado-em-ate": 4,
+            "sem-juros-ate": 3
+        },
+        "max-de-pedido": 5
+    },
+    {
+        "id": 7,
+        "nome": "Vestido Midi Romântico Rosé",
+        "descricao": "Camisa social branca em algodão, ideal para ambientes formais e profissionais.",
+        "preco": 99.90,
+        "imagem": "https://ik.imagekit.io/8wd5xavoy/Captura%20de%20tela%202025-12-15%20101616.png?updatedAt=null&ik-s=86bbd9962643f16c434e7bfb07e27acc33db0dfe",
+        "imagens": [
+            "https://ik.imagekit.io/8wd5xavoy/Captura%20de%20tela%202025-12-15%20101616.png?updatedAt=null&ik-s=86bbd9962643f16c434e7bfb07e27acc33db0dfe",
+            "https://ik.imagekit.io/8wd5xavoy/produtos/694af1496aa66-Captura_de_tela_2025-12-23_164451_D7BtOrAbR.png",
+            "https://weslleykholsinho.github.io/juvele-imd/cp000x06.png",
+            "https://weslleykholsinho.github.io/juvele-imd/cp000x01.png",
+            "https://weslleykholsinho.github.io/juvele-imd/cp000x03.png",
+            "https://ik.imagekit.io/8wd5xavoy/Captura%20de%20tela%202025-12-15%20101813.png?updatedAt=1765804876696&ik-s=6b77bc7aad40796464e190aa5a7a3a8b9c41c55b",
+            "https://ik.imagekit.io/8wd5xavoy/cp000x02_11zon.webp?updatedAt=1765718791220&ik-s=1043a44696867560cf97ac16350cc671e254dcaa"
+        ],
+        "destaque": true,
+        "categoria": [
+            "Camisas"
+        ],
+        "publicado-em": "2025-12-17",
+        "tamanhos": [
+            "P",
+            "M",
+            "G",
+            "GG"
+        ],
+        "cores": [
+            "Branco", 
+            "Branco",
+            "Rosa",
+            "Azul"
+        ],
+        "disponibilidade": true,
+        "parcelamento": {
+            "parcelado-em-ate": 4,
+            "sem-juros-ate": 3  
+        },
+        "max-de-pedido": 5
+    },
+    {
+        "id": 8,
+        "nome": "Shorts Jeans Destroyed",
+        "descricao": "Shorts jeans destroyed com barra desfiada, perfeito para um look casual de verão.",
+        "preco": 89.90,
+        "imagem": "https://ik.imagekit.io/8wd5xavoy/Captura%20de%20tela%202025-12-15%20101725.png?updatedAt=1765804877041&ik-s=b6613feeb3b4ff591a58ea2e329788eec1d0937e",
+        "imagens": [
+            "https://ik.imagekit.io/8wd5xavoy/Captura%20de%20tela%202025-12-15%20101725.png?updatedAt=1765804877041&ik-s=b6613feeb3b4ff591a58ea2e329788eec1d0937e",
+            "https://via.placeholder.com/600x800?text=Shorts+1+Vista+2"
+        ],
+        "destaque": false,
+        "categoria": [
+            "Shorts",
+            "#Promoções"
+        ],
+        "desconto": 20,
+        "publicado-em": "2025-12-17",
+        "tamanhos": [
+            "P",
+            "M",
+            "G",
+            "GG"
+        ],
+        "cores": [
+            "Azul Claro",
+            "Azul Escuro"
+        ],
+        "disponibilidade": true,
+        "parcelamento": {
+            "parcelado-em-ate": 3,
+            "sem-juros-ate": 2
+        },
+        "max-de-pedido": 5
+    },
+    {
+        "id": 9,
+        "nome": "Trench Coat Bege",
+        "descricao": "Trench coat clássico em tom bege, ideal para dias mais frios e chuvosos.",
+        "preco": 299.90,
+        "imagem": "https://ik.imagekit.io/8wd5xavoy/Captura%20de%20tela%202025-12-15%20101813.png?updatedAt=1765804876696&ik-s=6b77bc7aad40796464e190aa5a7a3a8b9c41c55b",
+        "imagens": [
+            "https://ik.imagekit.io/8wd5xavoy/Captura%20de%20tela%202025-12-15%20101813.png?updatedAt=1765804876696&ik-s=6b77bc7aad40796464e190aa5a7a3a8b9c41c55b",
+            "https://ik.imagekit.io/8wd5xavoy/cp000x02_11zon.webp?updatedAt=1765718791220&ik-s=1043a44696867560cf97ac16350cc671e254dcaa",
+            "https://ik.imagekit.io/8wd5xavoy/Captura%20de%20tela%202025-12-15%20101616.png?updatedAt=null&ik-s=86bbd9962643f16c434e7bfb07e27acc33db0dfe"
+        ],
+        "destaque": false,
+        "categoria": [
+            "Casacos"
+        ],
+        "publicado-em": "2025-12-17",
+        "tamanhos": [
+            "P",
+            "M",
+            "G",
+            "GG"
+        ],
+        "cores": [
+            "Bege",
+            "Preto",
+            "Marrom"
+        ],
+        "disponibilidade": true,
+        "parcelamento": {
+            "parcelado-em-ate": 6,
+            "sem-juros-ate": 5
+        },
+        "max-de-pedido": 3
+    },
+    {
+        "id": 10,
+        "nome": "Cropped de Malha",
+        "descricao": "Cropped de malha canelada, confortável e estiloso para o dia a dia. ext of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lore",
+        "preco": 59.90,
+        "imagem": "https://ik.imagekit.io/8wd5xavoy/Captura%20de%20tela%202025-12-15%20101635.png?updatedAt=1765804876269&ik-s=4dbb4d6bf772f0ac199a087969011f92e656aca8",
+        "imagens": [
+            "https://ik.imagekit.io/8wd5xavoy/Captura%20de%20tela%202025-12-15%20101635.png?updatedAt=1765804876269&ik-s=4dbb4d6bf772f0ac199a087969011f92e656aca8",
+            "https://ik.imagekit.io/8wd5xavoy/cp000x02_11zon.webp?updatedAt=1765718791220&ik-s=1043a44696867560cf97ac16350cc671e254dcaa"
+        ],
+        "destaque": true,
+        "categoria": [
+            "Cropped",
+            "#Promoções"
+        ],
+        "desconto": 25,
+        "publicado-em": "2025-12-17",
+        "tamanhos": [
+            "P",
+            "M",
+            "G"
+        ],
+        "cores": [
+            "Preto",
+            "Preto"
+        ],
+        "disponibilidade": true,
+        "parcelamento": {
+            "parcelado-em-ate": 4,
+            "sem-juros-ate": 3
+        },
+        "max-de-pedido": 5
+    }
+]

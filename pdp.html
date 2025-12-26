@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUVELE - Moda Feminina</title>
+    <link rel="shortcut icon" href="assets/images/site-icon/fav.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./assets/styles/base-fundamental.css">
+    <link rel="stylesheet" href="./assets/styles/footer(global).css" />
+    <link rel="stylesheet" href="./assets/styles/pdp.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        crossorigin="anonymous">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            background: #faf9f6;
+            font-family: sans-serif;
+        }
+
+        .search-bar--hidden {
+            display: none !important;
+        }
+
+        .pdp-colors-info {
+            position: relative;
+            min-height: 28px;
+        }
+
+        .color-select {
+            position: relative;
+            display: inline-block;
+        }
+
+        .color-toggle {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .color-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 6px;
+            background: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+            list-style: none;
+            padding: 6px 0;
+            min-width: 160px;
+            border-radius: 6px;
+            z-index: 40;
+        }
+
+        .color-dropdown[hidden] {
+            display: none;
+        }
+
+        .color-option {
+            padding: 8px 12px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .color-option:hover,
+        .color-option:focus {
+            background: #f3f6fb;
+        }
+
+        .color-option[aria-selected="true"] {
+            font-weight: 600;
+            background: #eef4ff;
+        }
+
+        /* Avisos para atributos (cor / tamanho) */
+        .attr-warning {
+            color: #d9534f;
+            background: transparent;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .attr-warning i {
+            color: #d9534f;
+            margin-right: 6px;
+        }
+
+        .attr-warning[hidden] {
+            display: none;
+        }
+
+        /* Shipping options styles */
+        .shipping {
+            margin-top: 16px;
+        }
+
+        .shipping-selected {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #002a47;
+        }
+
+        .store-card {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 6px;
+            border: 1px solid #e6e6e6;
+        }
+
+        .shipping-option {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .shipping-option:hover,
+        .shipping-option:focus {
+            background: #f7fbff;
+            outline: none;
+            border-color: #cfe0ff;
+        }
+
+        .shipping-option.selected {
+            border-color: #0077cc;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+        }
+
+        .shipping-option .ship-title {
+            font-weight: 700;
+        }
+
+        .shipping-option .ship-price {
+            margin-left: auto;
+            font-weight: 700;
+            color: #0077cc;
+        }
+
+        .shipping-option[role="radio"] {
+            outline: none;
+        }
+
+        .shipping-option:focus {
+            box-shadow: 0 0 0 3px rgba(0, 119, 204, 0.15);
+        }
+    </style>
+    <style>
+        .desc-toggle-link {
+            color: #0077cc;
+            font-weight: 600;
+            text-decoration: underline;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .desc-toggle-link:hover {
+            color: #005999;
+            text-decoration: none;
+        }
+
+        .breadcrumb-bg {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            background: #fafafa;
+            border: 1px solid #dbdbdb;
+        }
+
+        @media (max-width: 900px) {
+            .breadcrumb-bg {
+                width: 100%;
+                left: 0;
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+
+    </header>
+
+
+    <script src="./assets/javascript/nav(globalcode).js"></script>
+    <div class="search-icon" aria-hidden="true"></div>
+    <form id="siteSearch" class="search-bar search-bar--hidden" role="search" aria-label="Pesquisar no site"
+        onsubmit="return false;">
+        <input id="searchInput" type="search" placeholder="Pesquisar..." aria-label="Pesquisar" />
+        <button id="searchSubmit" type="button" aria-label="Buscar">Buscar</button>
+        <div id="searchResults" class="search-results" role="listbox" aria-hidden="true"></div>
+    </form>
+    <script src="./assets/javascript/pr-def.js"></script>
+    <script src="https://unpkg.com/dompurify@2.3.10/dist/purify.min.js"></script>
+    <script src="./assets/javascript/xss.js"></script>
+    <script src="./assets/javascript/nav.js"></script>
+    <script src="./assets/javascript/searchpage.js"></script>
+    <script>
+        window.addEventListener('load', function () {
+            document.getElementById('siteSearch').classList.remove('search-bar--hidden');
+        });
+        function toggleMenu() {
+            const nav = document.querySelector('.nav');
+            if (nav) nav.classList.toggle('nav--open');
+        }
+    </script>
+
+    <main>
+        <div id="breadcrumb"></div>
+        <div class="pdp-container">
+            <section class="pdp-grid" id="pdpGrid">
+                <!-- Conteúdo do produto será inserido via JS -->
+            </section>
+            <a class="whatsapp-float" href="https://wa.me/5511999999" target="_blank" aria-label="WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.min.js"></script>
+    <script src="./assets/javascript/pdp-zoom.js"></script>
+    <script>
+        // Função utilitária para escapar HTML
+        function escapeHtml(text) {
+            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+            return String(text).replace(/[&<>"']/g, m => map[m]);
+        }
+        // Obter ID do produto da URL
+        function getProductId() {
+            const params = new URLSearchParams(window.location.search);
+            return params.has('id') ? parseInt(params.get('id'), 10) : 0;
+        }
+        // Renderiza a trilha de migalhas de pão
+        function renderBreadcrumb() {
+            document.getElementById('breadcrumb').innerHTML =
+                '<div class="breadcrumb-bg"><p style="color: #002a47; margin: 0; font-size: 14px; padding: 10px 24px;">' +
+                '<a href="index.html" style="color: #005999;">Início</a> / <a href="search.html" style="color: #005999;">Produtos</a> / Detalhes</p></div>';
+        }
+        async function loadProduct() {
+            renderBreadcrumb();
+            const id = getProductId();
+            if (!id) {
+                document.getElementById('pdpGrid').innerHTML = '<h2 style="text-align:center;margin:60px 0;">Produto não encontrado.</h2>';
+                return;
+            }
+            try {
+                const res = await fetch(`assets/php/pdp_api.php?id=${id}`);
+                const data = await res.json();
+                if (!res.ok || !data.produto) {
+                    throw new Error(data.error || 'Produto não encontrado');
+                }
+                const produto = data.produto;
+                const relacionados = data.relacionados || [];
+                // Miniaturas (apenas exibir como thumbnail as imagens diferentes da imagem principal)
+                let allImages = Array.isArray(produto.imagens) && produto.imagens.length > 0 ? produto.imagens.slice() : (produto.imagem ? [produto.imagem] : []);
+                // currentMain guarda a imagem que está sendo mostrada como principal — ela NÃO aparecerá entre as miniaturas
+                let currentMain = produto.imagem || (allImages.length ? allImages[0] : '');
+
+                // Sistema de miniaturas: renderiza thumbs e permite trocar a imagem principal
+                let currentIndex = allImages.indexOf(currentMain);
+                if (currentIndex < 0) currentIndex = 0;
+
+                function renderThumbs() {
+                    // Thumbnails/carousel removed — no DOM to render here.
+                }
+
+                // Update indicator states: active + the two nearest neighbors
+                function updateIndicators(activeIndex) {
+                    const wrap = document.querySelector('.pdp-image-card .pdp-indicators');
+                    if (!wrap) return;
+                    const btns = wrap.querySelectorAll('.pdp-indicator');
+                    if (!btns || !btns.length) return;
+
+                    // Clear classes
+                    btns.forEach(b => {
+                        b.classList.remove('active', 'near');
+                        b.setAttribute('aria-pressed', 'false');
+                    });
+
+                    // Set active
+                    const activeBtn = wrap.querySelector(`.pdp-indicator[data-index="${activeIndex}"]`);
+                    if (activeBtn) {
+                        activeBtn.classList.add('active');
+                        activeBtn.setAttribute('aria-pressed', 'true');
+                    }
+
+                    // Determine the two closest indices by distance and mark them as near.
+                    const visibleIndices = Array.from(btns).map(b => Number(b.dataset.index));
+                    if (visibleIndices.length <= 1) return;
+
+                    const others = visibleIndices.filter(idx => idx !== activeIndex).map(idx => ({ idx, dist: Math.abs(idx - activeIndex) }));
+                    others.sort((a, b) => a.dist - b.dist);
+                    const nearIndices = others.slice(0, Math.min(2, others.length)).map(x => x.idx);
+                    nearIndices.forEach(idx => {
+                        const el = wrap.querySelector(`.pdp-indicator[data-index="${idx}"]`);
+                        if (el) el.classList.add('near');
+                    });
+                }
+
+
+                // Render small indicator dots below the image to indicate current slide
+                // Always render one dot per image (no windowing), even if there are more than 5
+                function renderIndicators() {
+                    const wrap = document.querySelector('.pdp-image-card .pdp-indicators');
+                    if (!wrap) return;
+                    // Hide when not needed
+                    if (!allImages || allImages.length < 2) {
+                        wrap.innerHTML = '';
+                        wrap.style.display = 'none';
+                        wrap.setAttribute('aria-hidden', 'true');
+                        return;
+                    }
+                    wrap.style.display = 'flex';
+                    wrap.setAttribute('aria-hidden', 'false');
+                    wrap.setAttribute('role', 'tablist');
+
+                    const n = allImages.length;
+                    wrap.innerHTML = allImages.map((_, i) => `
+                        <button class="pdp-indicator" data-index="${i}" aria-label="Ir para imagem ${i + 1} de ${n}" aria-pressed="false" type="button"></button>
+                    `).join('');
+
+                    wrap.querySelectorAll('.pdp-indicator').forEach(btn => {
+                        btn.addEventListener('click', () => setMain(Number(btn.dataset.index)));
+                        btn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setMain(Number(btn.dataset.index)); } });
+                    });
+
+                    // Initialize indicator classes
+                    updateIndicators(currentIndex);
+                }
+
+
+                // Exposed setMain updates the main image and button state; accepts optional scroll flag
+                function setMain(i, doScroll = true) {
+                    if (!allImages.length) return;
+                    i = (i + allImages.length) % allImages.length;
+                    currentIndex = i;
+                    currentMain = allImages[i];
+                    const mainImg = document.getElementById('pdpMainImage');
+                    if (mainImg) {
+                        mainImg.src = currentMain;
+                        mainImg.dataset.large = currentMain;
+                        mainImg.setAttribute('tabindex', '-1');
+                        try { mainImg.focus({ preventScroll: true }); } catch (e) { mainImg.focus(); }
+                    }
+                    // Smoothly scroll to the top when user selects an image (skip on initial load)
+                    if (doScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+                    // Update prev/next buttons visibility (thumbnails removed)
+                    const prevMainBtn = document.querySelector('.pdp-image-prev');
+                    const nextMainBtn = document.querySelector('.pdp-image-next');
+                    if (prevMainBtn) prevMainBtn.hidden = allImages.length < 2;
+                    if (nextMainBtn) nextMainBtn.hidden = allImages.length < 2;
+
+                    // Update indicators (if present)
+                    updateIndicators(i);
+                }
+
+                function initThumbs() {
+                    // Render indicators and wire main-image controls and keyboard navigation.
+                    renderIndicators();
+                    const prevMain = document.querySelector('.pdp-image-prev');
+                    const nextMain = document.querySelector('.pdp-image-next');
+                    if (prevMain) prevMain.addEventListener('click', () => setMain(currentIndex - 1));
+                    if (nextMain) nextMain.addEventListener('click', () => setMain(currentIndex + 1));
+                    if (prevMain) prevMain.hidden = allImages.length < 2;
+                    if (nextMain) nextMain.hidden = allImages.length < 2;
+
+                    // Keyboard navigation on the main image card
+                    const imageCard = document.querySelector('.pdp-image-card');
+                    const onKey = (e) => {
+                        if (e.key === 'ArrowLeft') setMain(currentIndex - 1);
+                        if (e.key === 'ArrowRight') setMain(currentIndex + 1);
+                    };
+                    if (imageCard) {
+                        imageCard.setAttribute('tabindex', '0');
+                        imageCard.addEventListener('keydown', onKey);
+                    } else {
+                        window.addEventListener('keydown', onKey);
+                    }
+
+                    // Initialize main image
+                    // Initialize without scrolling on first render
+                    setMain(currentIndex, false);
+                }
+                const originalPrice = parseFloat(produto.preco);
+                const discountPercent = produto.desconto ? parseInt(produto.desconto, 10) : 0;
+                let finalPrice = originalPrice;
+                let oldPriceHtml = '';
+                if (discountPercent > 0 && discountPercent < 100) {
+                    finalPrice = Math.round(originalPrice * (1 - (discountPercent / 100)) * 100) / 100;
+                    // Move discount badge next to the old price so it appears inline with the struck price
+                    oldPriceHtml = `<div class="pdp-old-price">R$${originalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })} <span class="pdp-discount-badge">- ${discountPercent}% OFF</span></div>`;
+                }
+                // discount badge is now included in `oldPriceHtml`
+                let discountBadge = '';
+                // Valor parcelado baseado nos dados do produto (parcelamento) — arredondado para 2 casas decimais
+                const parcelamento = produto.parcelamento || {};
+                const maxInstallmentsFromProduct = parcelamento['parcelado-em-ate'] ? parseInt(parcelamento['parcelado-em-ate'], 10) : 6;
+                const interestFreeUpTo = parcelamento['sem-juros-ate'] ? parseInt(parcelamento['sem-juros-ate'], 10) : maxInstallmentsFromProduct;
+                const installment = (finalPrice / maxInstallmentsFromProduct);
+                const installmentRounded = Number(installment.toFixed(2));
+                // Exibir apenas o parcelamento máximo sem juros na página principal (ex: "Em até Xx de R$Y,YY sem juros")
+                let financeHtml = '';
+                if (interestFreeUpTo && interestFreeUpTo > 0) {
+                    const perInstallment = finalPrice / interestFreeUpTo;
+                    const perInstallmentRounded = Number(perInstallment.toFixed(2));
+                    financeHtml = `${interestFreeUpTo}x de <strong>R$${perInstallmentRounded.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</strong> sem juros`;
+                }
+                const maxInstallments = maxInstallmentsFromProduct;
+                const semFree = interestFreeUpTo;
+                // Renderizar produto (dedupe de cores)
+                const uniqueColors = produto.cores && Array.isArray(produto.cores) ? (function () { const seen = new Set(); const out = []; for (const c of produto.cores) { const k = String(c || '').toLowerCase().trim(); if (k && !seen.has(k)) { seen.add(k); out.push(String(c)); } } return out; })() : [];
+                const numCores = uniqueColors.length;
+                document.getElementById('pdpGrid').innerHTML = `
+                    <div class="pdp-gallery">
+                        <div class="pdp-image-card">
+                            <button class="pdp-image-prev" type="button" aria-label="Imagem anterior" ${allImages.length < 2 ? 'hidden' : ''}>
+                                <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 6 L9 12 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                            <img id="pdpMainImage" tabindex="-1" data-large="${escapeHtml(produto.imagem)}" src="${escapeHtml(produto.imagem)}" alt="${escapeHtml(produto.nome)}">
+                            <button class="pdp-image-next" type="button" aria-label="Próxima imagem" ${allImages.length < 2 ? 'hidden' : ''}>
+                                <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6 L15 12 L9 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                            <button class="pdp-zoom" aria-label="Ampliar"><i class="fa fa-search-plus"></i></button>
+                            <div class="pdp-indicators" aria-hidden="true"></div>
+                        </div>
+    
+                    </div>
+                    <aside class="pdp-info">
+                        <div class="pdp-colors-info">
+                          ${produto.cores && Array.isArray(produto.cores) && produto.cores.length > 0 ? (produto.disponibilidade === false ? `<span class='produto-cores-badge esgotado'>Esgotado</span>` : `<span class='produto-cores-badge'> Disponível em ${numCores} cor${numCores > 1 ? 'es' : ''} <span class='circle-color-rainbow' title='Várias cores'></span></span>`) : ''}
+                        </div>
+                        <h1 class="pdp-title">${escapeHtml(produto.nome)}</h1>
+                        <div id="vue-desc">
+                          <p class="pdp-description">
+                            <span v-if="!expanded">{{ truncated }}<span v-if="showTruncate">...<a href="#" class="desc-toggle-link" @click.prevent="toggle"> Ver mais</a></span></span>
+                            <span v-else>{{ full }} <a href="#" class="desc-toggle-link" @click.prevent="toggle"> Ver menos</a></span>
+                          </p>
+                        </div>
+                        <div class="pdp-price-row">
+                            <div class="pdp-price">${oldPriceHtml}R$${finalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</div> 
+                            <div class="pdp-finance">${financeHtml}</div>
+                        </div>
+                        <div id="vue-payments">
+                            <div class="pdp-payments">
+                                <i class="fa-brands fa-cc-visa"></i>
+                                <i class="fa-brands fa-cc-mastercard"></i>
+                                <i class="fa-solid fa-plus"></i>
+                                <a class="pay-link" href="#" @click.prevent="toggle()">{{ show ? 'FECHAR MEIOS DE PAGAMENTO' : 'VER MEIOS DE PAGAMENTO' }}</a>
+                            </div>
+
+                            <!-- Overlay fixed modal -->
+                            <div v-if="show">
+                                <div class="pdp-payments-backdrop" @click="toggle()" aria-hidden="true"></div>
+                                <div class="pdp-payments-overlay" role="dialog" aria-modal="true" aria-labelledby="paymentsTitle">
+                                    <button class="pdp-payments-close" @click="toggle()" aria-label="Fechar">&times;</button>
+                                    <div class="pdp-payments-panel" role="region" aria-live="polite">
+                                        <h3 id="paymentsTitle" style="margin-top:0;">Meios de pagamento</h3>
+
+                                        <div class="pdp-payments-methods">
+                                            <div class="methods">
+                                                <div class="method" v-for="m in paymentMethods" :key="m.name" style="display:flex;align-items:center;gap:8px;">
+                                                    <img v-if="m.img" :src="m.img" :alt="m.name" class="method-img" />
+                                                    <i v-else :class="m.icon"></i>
+                                                    <span class="method-name">{{ m.name }}</span>
+                                                    <!-- Exibe total à vista para Pix alinhado à direita -->
+                                                    <span v-if="m.name === 'Pix'" class="pix-total" style="margin-left:auto;font-weight:600">Total: R$ {{ price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pdp-installments" style="margin-top:10px">
+                                            <p><strong>Opções de parcelamento:</strong></p>
+                                            <ul>
+                                                <li v-for="n in maxInstallments" :key="n">{{ n }}x de R$ {{ installment(n) }}<strong><span v-if="n<=semFree">&nbsp;sem juros</span></strong></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pdp-attributes">
+                            <div class="attr color-attr">
+                                <label>COR:</label>
+                                <div class="attr-warning color-warning" role="status" aria-live="polite" hidden><i class="fa fa-circle-exclamation" aria-hidden="true"></i><span>Escolha</span></div>
+                                <div class="value">
+                                    <div class="color-select" aria-haspopup="listbox">
+                                        <button type="button" class="color-toggle" id="colorToggle" aria-expanded="false" aria-label="Selecionar cor">
+                                            <span class="selected-color">ESCOLHA</span>
+                                            <i class="fa fa-caret-down" aria-hidden="true" style="margin-left:8px;"></i>
+                                        </button>
+                                        <ul class="color-dropdown" id="colorDropdown" role="listbox" aria-label="Cores" hidden>
+                                            ${uniqueColors && uniqueColors.length ? uniqueColors.map(c => `<li role="option" tabindex="0" data-color="${escapeHtml(String(c))}" class="color-option">${escapeHtml(String(c))}</li>`).join('') : ''}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="attr"><label>TAMANHO(S):</label>
+                                <div class="attr-warning size-warning" role="status" aria-live="polite" hidden><i class="fa fa-circle-exclamation" aria-hidden="true"></i><span>Escolha</span></div>
+                                <div class="value">
+                                    <div class="size-buttons" role="radiogroup" aria-label="Tamanhos">
+                                        <!-- botões de tamanhos serão renderizados aqui -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pdp-qty">
+                            <label>QUANTIDADE</label>
+                            <div class="qty-select" id="qtySelect">
+                                <div id="qtyDisplay" class="qty-display" tabindex="0" role="button" aria-expanded="false">1</div>
+                                <div id="qtyDropdown" class="qty-dropdown" hidden></div>
+                            </div>
+                        </div>
+                        <button class="btn-buy">FAZER PEDIDO <i class="fas fa-shopping-basket"></i></button>
+                        <div class="shipping">
+                            <h4><i class="fa-solid fa-truck"></i> Meios de envio</h4>
+                            <div class="shipping-selected" aria-live="polite"></div>
+                            <div class="store-card" id="shippingOptions" role="radiogroup" aria-label="Meios de envio">
+                                <!-- Opções de envio serão renderizadas aqui -->
+                            </div>
+                        </div>
+                    </aside>
+                    `;
+                // Renderizar tamanhos (botões) e lógica de seleção
+                const sizeContainer = document.querySelector('.size-buttons');
+                const tamanhosArr = Array.isArray(produto.tamanhos) ? produto.tamanhos : [];
+                let selectedSize = null; // Nenhum tamanho selecionado por padrão
+
+                function renderSizes() {
+                    if (!sizeContainer) return;
+                    if (!tamanhosArr.length) {
+                        sizeContainer.innerHTML = `<div class="no-sizes">Sem tamanhos disponíveis</div>`;
+                        return;
+                    }
+                    // Nenhum botão vem marcado como ativo por padrão — o usuário deve escolher
+                    sizeContainer.innerHTML = tamanhosArr.map((s) =>
+                        `<button type="button" class="size-btn" data-size="${escapeHtml(String(s))}" aria-pressed="false" aria-checked="false" role="radio">${escapeHtml(String(s))}</button>`
+                    ).join('');
+                    sizeContainer.querySelectorAll('.size-btn').forEach(btn => {
+                        btn.addEventListener('click', () => selectSize(btn.dataset.size));
+                        btn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectSize(btn.dataset.size); } });
+                    });
+                }
+
+                function selectSize(size) {
+                    selectedSize = size;
+                    if (!sizeContainer) return;
+                    const buttons = sizeContainer.querySelectorAll('.size-btn');
+                    buttons.forEach(b => {
+                        const active = b.dataset.size === size;
+                        b.classList.toggle('active', active);
+                        b.setAttribute('aria-pressed', active);
+                        b.setAttribute('aria-checked', active);
+                    });
+                }
+
+                // Render a primeira vez
+                renderSizes();
+
+                // --- Shipping options: render dinamicamente e tornar selecionáveis ---
+                const shippingOptionsContainer = document.getElementById('shippingOptions');
+                const shippingSelectedPriceEl = () => document.querySelector('.shipping-selected-price');
+                let selectedShipping = null;
+
+                // tenta obter do produto; se não houver, usa defaults
+                const defaultShipping = [
+                    { id: 'pickup', title: 'Retirada na loja', address: produto.loja_endereco || 'Loja Campo Grande Avenida Getúlio Vargas 98, Campo Grande', price: 0 },
+                    { id: 'alianca', title: 'Aliança', address: 'Fazemos entregas para toda cidade de Aliança-PE', price: 10 },
+                    { id: 'timbauba', title: 'Timbaúba', address: 'Fazemos entrega para toda cidade de Timbaúba-PE', price: 15 }
+                ];
+                const shippingData = Array.isArray(produto.envios) && produto.envios.length ? produto.envios : defaultShipping;
+
+                function formatCurrency(v) { return (Number(v) || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); }
+
+                // Exibe 'Grátis' quando o preço é exatamente 0, senão formata como moeda
+                function formatShippingPrice(v) {
+                    try { const n = Number(v); return (n === 0) ? 'Grátis' : formatCurrency(n); } catch (e) { return formatCurrency(v); }
+                }
+
+                function renderShippingOptions() {
+                    if (!shippingOptionsContainer) return;
+                    shippingOptionsContainer.innerHTML = shippingData.map((s, idx) => `
+                        <div class="shipping-option" role="radio" data-id="${escapeHtml(s.id)}" data-price="${escapeHtml(String(s.price))}" aria-checked="false">
+                            <div>
+                                <div class="ship-title">${escapeHtml(s.title)}</div>
+                                <div class="store-address ship-address">${escapeHtml(s.address || '')}</div>
+                            </div>
+                            <div class="ship-price">${formatShippingPrice(s.price)}</div>
+                        </div>
+                    `).join('');
+
+                    // Eventos e navegação por teclado
+                    const items = Array.from(shippingOptionsContainer.querySelectorAll('.shipping-option'));
+                    // Accessibility: when none is selected, make only the first tabbable (tabindex=0) and others -1
+                    items.forEach((el, idx) => { el.tabIndex = idx === 0 ? 0 : -1; });
+                    function setTabIndexFor(targetIdx) { items.forEach((el2, j) => { el2.tabIndex = j === targetIdx ? 0 : -1; }); }
+
+                    items.forEach((el, i) => {
+                        el.addEventListener('click', () => { selectShipping(el); setTabIndexFor(i); });
+                        el.addEventListener('keydown', (e) => {
+                            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectShipping(el); setTabIndexFor(i); }
+                            if (e.key === 'ArrowDown') { e.preventDefault(); const nxtIdx = (i + 1) % items.length; setTabIndexFor(nxtIdx); items[nxtIdx].focus(); }
+                            if (e.key === 'ArrowUp') { e.preventDefault(); const prvIdx = (i - 1 + items.length) % items.length; setTabIndexFor(prvIdx); items[prvIdx].focus(); }
+                        });
+                    });
+                }
+
+                function selectShipping(el, announce = true) {
+                    if (!el || !shippingOptionsContainer) return;
+                    // Remove seleção anterior e torne não-tabáveis
+                    shippingOptionsContainer.querySelectorAll('.shipping-option').forEach(x => { x.classList.remove('selected'); x.setAttribute('aria-checked', 'false'); x.tabIndex = -1; });
+                    // Marcar a atual e torná-la tabbable
+                    el.classList.add('selected');
+                    el.setAttribute('aria-checked', 'true');
+                    el.tabIndex = 0;
+                    selectedShipping = { id: el.dataset.id, price: Number(el.dataset.price) };
+                    const p = shippingSelectedPriceEl(); if (p) p.textContent = formatShippingPrice(selectedShipping.price);
+                }
+
+                renderShippingOptions();
+                // --- fim Shipping options ---
+
+                // --- Dropdown de cores: inicialização e handlers ---
+                const colorToggle = document.getElementById('colorToggle');
+                const colorDropdown = document.getElementById('colorDropdown');
+                const colorOptions = colorDropdown ? Array.from(colorDropdown.querySelectorAll('.color-option')) : [];
+                // Start with no color selected so the UI shows the generic prompt 'ESCOLHA'
+                let selectedColor = null;
+
+                function updateSelectedColorUI(color) {
+                    const selSpan = document.querySelector('.selected-color');
+                    if (selSpan) selSpan.textContent = color || 'Escolha';
+                    if (colorDropdown) {
+                        colorDropdown.querySelectorAll('.color-option').forEach(o => o.setAttribute('aria-selected', o.dataset.color === color));
+                    }
+                }
+                updateSelectedColorUI(selectedColor);
+
+                function onWindowScrollForColor() {
+                    // Fecha o dropdown quando a página é movida (scroll ou toque)
+                    closeColorDropdown();
+                }
+
+                function openColorDropdown() {
+                    if (!colorDropdown || !colorToggle) return;
+                    // Se houver uma cor selecionada, movê-la para o topo para que o usuário a veja primeiro
+                    if (selectedColor) {
+                        let selEl = null;
+                        Array.from(colorDropdown.querySelectorAll('.color-option')).forEach(el => { if (el.dataset.color === selectedColor) selEl = el; });
+                        if (selEl && colorDropdown.firstElementChild !== selEl) {
+                            colorDropdown.insertBefore(selEl, colorDropdown.firstElementChild);
+                        }
+                    }
+                    colorDropdown.hidden = false;
+                    colorToggle.setAttribute('aria-expanded', 'true');
+                    document.body.addEventListener('click', onBodyClickForColor);
+                    // fechar também ao rolar ou tocar a tela
+                    window.addEventListener('scroll', onWindowScrollForColor, { passive: true, capture: true });
+                    window.addEventListener('touchstart', onWindowScrollForColor, { passive: true });
+                    // Focar a opção selecionada (ou a primeira) para melhor acessibilidade/teclado
+                    const focusTarget = colorDropdown.querySelector('.color-option[aria-selected="true"]') || colorDropdown.querySelector('.color-option');
+                    if (focusTarget) focusTarget.focus();
+                }
+                function closeColorDropdown() {
+                    if (!colorDropdown || !colorToggle) return;
+                    colorDropdown.hidden = true;
+                    colorToggle.setAttribute('aria-expanded', 'false');
+                    document.body.removeEventListener('click', onBodyClickForColor);
+                    window.removeEventListener('scroll', onWindowScrollForColor, { capture: true });
+                    window.removeEventListener('touchstart', onWindowScrollForColor);
+                }
+                function toggleColorDropdown() {
+                    if (!colorDropdown) return;
+                    if (colorDropdown.hidden) openColorDropdown(); else closeColorDropdown();
+                }
+                function onBodyClickForColor(e) {
+                    const path = e.composedPath ? e.composedPath() : (e.path || []);
+                    if (!path || !path.length) return closeColorDropdown();
+                    if (!path.includes(colorDropdown) && !path.includes(colorToggle)) closeColorDropdown();
+                }
+
+                if (colorToggle) {
+                    colorToggle.addEventListener('click', (e) => { e.stopPropagation(); toggleColorDropdown(); });
+                    colorToggle.addEventListener('keydown', (e) => { if (e.key === 'ArrowDown') { e.preventDefault(); openColorDropdown(); } });
+                }
+                colorOptions.forEach(opt => {
+                    opt.addEventListener('click', () => {
+                        const selColor = opt.dataset.color;
+                        selectedColor = selColor;
+                        updateSelectedColorUI(selectedColor);
+                        closeColorDropdown();
+
+                        // Localizar a primeira ocorrência da cor no array original (case-insensitive)
+                        let colorPos = -1;
+                        if (Array.isArray(produto.cores)) {
+                            colorPos = produto.cores.findIndex(c => String(c || '').toLowerCase().trim() === String(selColor || '').toLowerCase().trim());
+                        }
+                        if (colorPos >= 0 && Array.isArray(allImages) && allImages.length) {
+                            const idx = Math.min(colorPos, allImages.length - 1);
+                            // setMain desloca a imagem principal e rola ao topo quando doScroll=true
+                            setMain(idx, true);
+                        }
+                    });
+                    opt.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            const selColor = opt.dataset.color;
+                            selectedColor = selColor;
+                            updateSelectedColorUI(selectedColor);
+                            closeColorDropdown();
+
+                            let colorPos = -1;
+                            if (Array.isArray(produto.cores)) {
+                                colorPos = produto.cores.findIndex(c => String(c || '').toLowerCase().trim() === String(selColor || '').toLowerCase().trim());
+                            }
+                            if (colorPos >= 0 && Array.isArray(allImages) && allImages.length) {
+                                const idx = Math.min(colorPos, allImages.length - 1);
+                                setMain(idx, true);
+                            }
+                        }
+                        if (e.key === 'ArrowDown') { e.preventDefault(); const nxt = opt.nextElementSibling; if (nxt) nxt.focus(); }
+                        if (e.key === 'ArrowUp') { e.preventDefault(); const prv = opt.previousElementSibling; if (prv) prv.focus(); else colorToggle.focus(); }
+                        if (e.key === 'Escape') { e.preventDefault(); closeColorDropdown(); colorToggle.focus(); }
+                    });
+                });
+                // --- END dropdown de cores ---
+
+                // --- Dropdown de quantidade (usa produto['max-de-pedido']) ---
+                const qtyDisplay = document.getElementById('qtyDisplay');
+                const qtyDropdown = document.getElementById('qtyDropdown');
+                const qtySelect = document.getElementById('qtySelect');
+                let selectedQty = 1;
+                const maxOrderRaw = produto['max-de-pedido'] || produto['max-de-pedidos'] || 1;
+                let maxOrder = parseInt(maxOrderRaw, 10) || 1;
+                // safety cap to avoid absurdly large dropdowns
+                maxOrder = Math.max(1, Math.min(50, maxOrder));
+
+                function renderQtyOptions() {
+                    if (!qtyDropdown) return;
+                    const rows = Array.from({ length: maxOrder }, (_, i) => `<button type="button" class="qty-row" data-qty="${i + 1}">${i + 1}</button>`).join('');
+                    qtyDropdown.innerHTML = rows;
+                    updateQtyUI(selectedQty);
+                    qtyDropdown.querySelectorAll('.qty-row').forEach(btn => {
+                        btn.addEventListener('click', () => { selectQty(parseInt(btn.dataset.qty, 10)); closeQtyDropdown(); });
+                        btn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectQty(parseInt(btn.dataset.qty, 10)); closeQtyDropdown(); } if (e.key === 'ArrowDown') { e.preventDefault(); const nxt = btn.nextElementSibling; if (nxt) nxt.focus(); } if (e.key === 'ArrowUp') { e.preventDefault(); const prv = btn.previousElementSibling; if (prv) prv.focus(); else qtyDisplay.focus(); } if (e.key === 'Escape') { e.preventDefault(); closeQtyDropdown(); qtyDisplay.focus(); } });
+                    });
+                }
+
+                function updateQtyUI(q) {
+                    if (qtyDisplay) qtyDisplay.textContent = String(q);
+                    if (qtyDropdown) qtyDropdown.querySelectorAll('.qty-row').forEach(r => r.classList.toggle('active', parseInt(r.dataset.qty, 10) === q));
+                }
+
+                function selectQty(q) {
+                    selectedQty = q;
+                    updateQtyUI(q);
+                }
+
+                function openQtyDropdown() {
+                    if (!qtyDropdown || !qtyDisplay) return;
+                    // move selected to top for visibility
+                    const sel = qtyDropdown.querySelector(`.qty-row[data-qty="${selectedQty}"]`);
+                    if (sel) { sel.scrollIntoView({ block: 'nearest' }); }
+                    qtyDropdown.hidden = false;
+                    qtyDisplay.setAttribute('aria-expanded', 'true');
+                    document.body.addEventListener('click', onBodyClickForQty);
+                    window.addEventListener('scroll', onWindowScrollForQty, { passive: true, capture: true });
+                    window.addEventListener('touchstart', onWindowScrollForQty, { passive: true });
+                    // focus selected or first
+                    (sel || qtyDropdown.querySelector('.qty-row')) && (sel || qtyDropdown.querySelector('.qty-row')).focus();
+                }
+
+                function closeQtyDropdown() {
+                    if (!qtyDropdown || !qtyDisplay) return;
+                    qtyDropdown.hidden = true;
+                    qtyDisplay.setAttribute('aria-expanded', 'false');
+                    document.body.removeEventListener('click', onBodyClickForQty);
+                    window.removeEventListener('scroll', onWindowScrollForQty, { passive: true, capture: true });
+                    window.removeEventListener('touchstart', onWindowScrollForQty, { passive: true });
+                }
+
+                function toggleQtyDropdown() {
+                    if (!qtyDropdown || !qtyDisplay) return;
+                    if (qtyDropdown.hidden) openQtyDropdown(); else closeQtyDropdown();
+                }
+
+                function onBodyClickForQty(e) { if (!e.target.closest || !qtySelect) { closeQtyDropdown(); return; } if (!e.target.closest('.qty-select')) closeQtyDropdown(); }
+                function onWindowScrollForQty() { closeQtyDropdown(); }
+
+                if (qtyDisplay) {
+                    qtyDisplay.addEventListener('click', toggleQtyDropdown);
+                    qtyDisplay.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleQtyDropdown(); } if (e.key === 'Escape') closeQtyDropdown(); });
+                }
+
+                renderQtyOptions();
+
+                // Helpers para mostrar/ocultar avisos inline
+                function showWarning(el, msg) {
+                    if (!el) return;
+                    el.hidden = false;
+                    el.innerHTML = `<i class="fa fa-circle-exclamation" aria-hidden="true" style="margin-right:6px;"></i><span>${msg}</span>`;
+                }
+                function hideWarning(el) { if (!el) return; el.hidden = true; el.innerHTML = ''; }
+
+                // Esconder aviso de tamanho quando o usuário selecionar um tamanho
+                const buyBtn = document.querySelector('.btn-buy');
+                // garantir que os handlers de seleção escondam avisos
+                const sizeWarningEl = document.querySelector('.attr-warning.size-warning');
+                const colorWarningEl = document.querySelector('.attr-warning.color-warning');
+
+                // Quando o usuário clicar em um botão de tamanho, esconder o aviso
+                if (sizeContainer) {
+                    sizeContainer.querySelectorAll('.size-btn').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const sw = document.querySelector('.attr-warning.size-warning');
+                            if (sw) sw.hidden = true;
+                        });
+                        btn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { const sw = document.querySelector('.attr-warning.size-warning'); if (sw) sw.hidden = true; } });
+                    });
+                }
+
+                // esconder aviso quando uma cor for escolhida
+                colorOptions.forEach(opt => {
+                    opt.addEventListener('click', () => {
+                        const sw = document.querySelector('.attr-warning.color-warning');
+                        if (sw) sw.hidden = true;
+                    });
+                    opt.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            const sw = document.querySelector('.attr-warning.color-warning');
+                            if (sw) sw.hidden = true;
+                        }
+                    });
+                });
+
+                if (buyBtn) {
+                    buyBtn.addEventListener('click', () => {
+                        let hadError = false;
+
+                        if (tamanhosArr.length && !selectedSize) {
+                            showWarning(sizeWarningEl, 'Escolha');
+                            const firstBtn = sizeContainer.querySelector('.size-btn');
+                            if (firstBtn) { firstBtn.focus(); firstBtn.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+                            hadError = true;
+                        }
+
+                        if (uniqueColors && uniqueColors.length && !selectedColor) {
+                            showWarning(colorWarningEl, 'Escolha');
+                            if (colorToggle) { colorToggle.focus(); colorToggle.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+                            hadError = true;
+                        }
+
+                        if (hadError) return;
+
+                        // Placeholder - implementar fluxo de compra
+                        console.log('Comprar produto:', produto.id, 'tamanho:', selectedSize, 'cor:', selectedColor, 'quantidade:', selectedQty, 'frete:', selectedShipping ? (selectedShipping.price === 0 ? 'Grátis' : formatCurrency(selectedShipping.price)) : null);
+                    });
+                }
+
+                // Inicializar Vue para descrição
+                new window.Vue({
+                    el: '#vue-desc',
+                    data: {
+                        expanded: false,
+                        full: produto.descricao ? produto.descricao : '',
+                        limit: 120
+                    },
+                    computed: {
+                        truncated() {
+                            if (!this.full) return '';
+                            return this.full.length > this.limit ? this.full.slice(0, this.limit) : this.full;
+                        },
+                        showTruncate() {
+                            return this.full && this.full.length > this.limit;
+                        }
+                    },
+                    methods: {
+                        toggle() {
+                            this.expanded = !this.expanded;
+                        }
+                    }
+                });
+
+                // Inicializar Vue para meios de pagamento (painel de parcelamento)
+                new window.Vue({
+                    el: '#vue-payments',
+                    data: {
+                        show: false,
+                        price: finalPrice,
+                        maxInstallments: maxInstallments,
+                        semFree: semFree,
+                        paymentMethods: [
+                            { name: 'Pix', icon: '', img: 'assets/images/payments/pix@2x.png' },
+                            { name: 'Visa', icon: 'fa-brands fa-cc-visa', img: 'assets/images/payments/visa@2x.png' },
+                            { name: 'Mastercard', icon: 'fa-brands fa-cc-mastercard', img: 'assets/images/payments/mastercard@2x.png' },
+                            { name: 'Amex', icon: 'fa-brands fa-cc-amex', img: 'assets/images/payments/amex@2x.png' },
+                            { name: 'Elo', icon: '', img: 'assets/images/payments/elo@2x.png' },
+                            { name: 'Hipercard', icon: '', img: 'assets/images/payments/hipercard@2x.png' },
+                            { name: 'Diners', icon: '', img: 'assets/images/payments/diners@2x.png' },
+                            { name: 'Discover', icon: '', img: 'assets/images/payments/discover@2x.png' }
+                        ]
+                    },
+                    methods: {
+                        toggle() {
+                            this.show = !this.show;
+                        },
+                        installment(n) {
+                            // Retorna valor formatado em pt-BR com 2 casas decimais
+                            return (this.price / n).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                        },
+                        onKeydown(e) {
+                            if (this.show && e.key === 'Escape') this.toggle();
+                        }
+                    },
+                    watch: {
+                        show(val) {
+                            if (val) document.body.classList.add('overlay-open');
+                            else document.body.classList.remove('overlay-open');
+                        }
+                    },
+                    mounted() {
+                        window.addEventListener('keydown', this.onKeydown);
+                    },
+                    beforeDestroy() {
+                        window.removeEventListener('keydown', this.onKeydown);
+                        document.body.classList.remove('overlay-open');
+                    }
+                });
+
+                // Inicializa o sistema de miniaturas
+                initThumbs();
+
+                if (window.initPdpZoom) window.initPdpZoom();
+            } catch (e) {
+                document.getElementById('pdpGrid').innerHTML = `<h2 style='text-align:center;margin:60px 0;'>${escapeHtml(e.message)}</h2>`;
+            }
+        }
+        loadProduct();
+    </script>
+</body>
+
+</html>

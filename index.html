@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<!-- ============================
+		 METADADOS E FONTES
+		 ============================ -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JUVELE - Moda Feminina</title>
+	<link rel="shortcut icon" href="assets/images/site-icon/fav.ico" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=DM+Serif+Display:ital@0;1&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+
+	<script>
+		// Aplica Montserrat na logo assim que a fonte estiver carregada
+		if (document.fonts) {
+			document.fonts.ready.then(function () {
+				var logo = document.querySelector('.logo');
+				if (logo) logo.style.fontFamily = 'Montserrat, sans-serif';
+			});
+		}
+	</script>
+
+	<!-- ============================
+		 ESTILOS PRINCIPAIS
+		 ============================ -->
+	<link rel="stylesheet" href="./assets/styles/base-fundamental.css">
+	<link rel="stylesheet" href="./assets/styles/styles.css" />
+	<link rel="stylesheet" href="./assets/styles/faixatop.css" />
+	<link rel="stylesheet" href="./assets/styles/categorias0x1.css" />
+	<link rel="stylesheet" href="./assets/styles/footer(global).css" />
+	<link rel="stylesheet" href="./assets/styles/store(status-open-and-close).css" />
+	<link rel="stylesheet" href="assets/styles/estilos-para-card-de-produtos.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity=""
+		crossorigin="anonymous">
+
+	<!-- ============================
+		 ESTILO INLINE (AJUSTES RÁPIDOS)
+		 ============================ -->
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		html,
+		body {
+			height: 100%;
+			width: 100%;
+			background: #faf9f6;
+			font-family: sans-serif;
+		}
+
+		.search-bar--hidden {
+			display: none !important;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- ============================
+		 HEADER E NAVEGAÇÃO
+		 ============================ -->
+	<header>
+		<!-- nav HTML removido daqui; será injetado por nav(globalcode).js -->
+	</header>
+	<script src="./assets/javascript/nav(globalcode).js"></script>
+
+	<!-- ============================
+		 BARRA DE PESQUISA
+		 ============================ -->
+	<div class="search-icon" aria-hidden="true">
+		<!-- mantenha seu ícone atual aqui (ex.: <i class="fa fa-search"></i>) -->
+	</div>
+	<form id="siteSearch" class="search-bar search-bar--hidden" role="search" aria-label="Pesquisar no site"
+		onsubmit="return false;">
+		<input id="searchInput" type="search" placeholder="Pesquisar..." aria-label="Pesquisar" />
+		<button id="searchSubmit" type="button" aria-label="Buscar">Buscar</button>
+		<div id="searchResults" class="search-results" role="listbox" aria-hidden="true"></div>
+	</form>
+
+	<!-- ============================
+		 BANNER PROMOCIONAL E FAIXA TOP
+		 ============================ -->
+	<div class="promotion">
+		<div class="promo-text">
+			<h3>OFERTAS IMPERDÍVEIS!</h3>
+			<small>Descontos exclusivos em toda a loja. Aproveite agora!</small>
+		</div>
+	</div>
+	<div class="faixatop" id="ProdutosDestaque">
+		<p class="faixa-item active">PAGUE PARCELADO EM ATÉ 6X SEM JUROS</p>
+		<p class="faixa-item">FRETE GRÁTIS PARA TODOS OS PRODUTOS DA LOJA.</p>
+		<p class="faixa-item">COMPRA 100% SEGURA</p>
+	</div>
+
+	<!-- ============================
+		 SEÇÃO: PRODUTOS EM DESTAQUE
+		 ============================ -->
+	<section id="destaques" class="produtos-destaque" aria-labelledby="destaques-title">
+		<!-- Indicador de status da loja -->
+		<div id="vju-horario-container">
+			<p id="lojaStatus">
+				<span id="statusText"></span>
+			</p>
+			<transition name="fade">
+				<div v-if="showHorario" class="horario-detalhado-modal" @click.self="closeHorario" tabindex="-1"
+					aria-modal="true" role="dialog">
+					<div class="horario-detalhado-content">
+						<button class="horario-close-btn" @click="closeHorario" aria-label="Fechar">&times;</button>
+
+						<h3>Horário de Funcionamento</h3>
+						<ul>
+							<li><strong>Segunda a Sábado:</strong> 8h às 18h</li>
+							<li><strong>Domingo:</strong> Fechado</li>
+						</ul>
+						<p><strong>*ATENÇÃO: Em feriados, o horário de funcionamento pode sofrer alterações.</strong>
+						</p><a> Consulte
+							nossas redes sociais para
+							atualizações.</a><br><a href="#footer" @click="closeHorario">Acessar contatos e redes
+							sociais</a>
+						<button class="horario-entendi-btn" @click="closeHorario">Entendi</button>
+					</div>
+				</div>
+			</transition>
+		</div>
+		<!-- Faixa de categorias deslizável -->
+		<div class="categorias-wrapper" aria-label="Categorias de produtos">
+			<div id="categoriasList" class="categorias" role="list" tabindex="0"
+				aria-label="Categorias (deslize para ver mais)">
+				<!-- Categorias serão inseridas dinamicamente -->
+			</div>
+		</div>
+		<h2 id="destaques-title">Produtos em Destaque</h2>
+		<p class="destaques-desc">
+			Selecionamos looks que combinam estilo, conforto e personalidade para você brilhar em qualquer ocasião.
+		<div class="container">
+			<div id="produtosContainer" class="produtos-container" role="list"></div>
+			<div id="produtosErro" class="produtos-erro" role="status" aria-live="polite" hidden>
+				Não foi possível carregar os produtos no momento.
+			</div>
+		</div>
+	</section>
+
+	<!-- ============================
+		 SCRIPTS PRINCIPAIS (CARREGAMENTO OTIMIZADO)
+		 ============================ -->
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+	<script src="./assets/javascript/pr-def.js"></script>
+	<script src="https://unpkg.com/dompurify@2.3.10/dist/purify.min.js"></script>
+	<script src="./assets/javascript/xss.js"></script>
+	<script src="./assets/javascript/nav.js"></script>
+	<script src="./assets/javascript/sys-ger-prod.js"></script>
+	<script src="./assets/javascript/faixatop.js"></script>
+	<script>
+		// ============================
+		// STATUS DA LOJA (DINÂMICO) + VJU HORÁRIO DETALHADO
+		// ============================
+		const diasFechados = [0]; // 0 = domingo
+
+		// Vue para horário detalhado
+		new Vue({
+			el: '#vju-horario-container',
+			data: {
+				showHorario: false
+			},
+			mounted() {
+				this.atualizarStatusLoja();
+				setInterval(this.atualizarStatusLoja, 2000);
+				// Delegação para clique no link 'Saiba mais'
+				this.$nextTick(() => {
+					this.addSaibaMaisListener();
+				});
+			},
+			methods: {
+				atualizarStatusLoja() {
+					const agora = new Date();
+					const hora = agora.getHours();
+					const diaSemana = agora.getDay();
+					const statusText = document.getElementById('statusText');
+					if (!statusText) return;
+					let inner = '';
+					if (diasFechados.includes(diaSemana)) {
+						inner = '<div id="closestatustext">' +
+							'<span id="statusDot" class="fechado"></span>' +
+							'Fechado</div>' +
+							'<div id="statustextstyle">' + '<p><a href="#" class="saibamais-link">Saiba mais+</a> sobre o nosso horário de funcionamento.</p></div>';
+					} else if (hora >= 8 && hora < 18) {
+						inner = '<div id="openstatustext">' +
+							'<span id="statusDot" class="aberto"></span>' +
+							'Aberto</div>' +
+							'<div id="statustextstyle">' + '<p><a href="#" class="saibamais-link">Saiba mais+</a> sobre o nosso horário de funcionamento.</p></div>';
+					} else {
+						inner = '<div id="closestatustext">' +
+							'<span id="statusDot" class="fechado"></span>' +
+							'Fechado</div>' +
+							'<div id="statustextstyle">' + '<p><a href="#" class="saibamais-link">Saiba mais+</a> sobre o nosso horário de funcionamento.</p></div>';
+					}
+					statusText.innerHTML = inner;
+					this.addSaibaMaisListener();
+				},
+				addSaibaMaisListener() {
+					// Remove listeners antigos
+					const links = document.querySelectorAll('.saibamais-link');
+					links.forEach(link => {
+						link.onclick = (e) => {
+							e.preventDefault();
+							this.showHorario = true;
+						};
+					});
+				},
+				closeHorario() {
+					this.showHorario = false;
+				}
+			}
+		});
+
+		// Remover ocultação da barra de pesquisa após o carregamento dos estilos
+		window.addEventListener('load', function () {
+			document.getElementById('siteSearch').classList.remove('search-bar--hidden');
+		});
+
+		function toggleMenu() {
+			const nav = document.querySelector('.nav');
+			if (nav) {
+				nav.classList.toggle('nav--open');
+			}
+		}
+	</script>
+	<script src="./assets/javascript/footer(global).js"></script>
+	<script src="./assets/javascript/categorias0x1.js"></script>
+</body>
+<style>
+	/* Chic, minimal modal for horario-detalhado */
+	.horario-detalhado-modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(10, 12, 14, 0.48);
+
+		z-index: 10050;
+		/* ensure modal overlays promotional banner */
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 20px;
+		animation: modal-fade 160ms ease;
+	}
+
+	.horario-detalhado-content {
+		background: linear-gradient(180deg, #ffffff, #fbfdff);
+		border: 1px solid rgba(15, 22, 35, 0.06);
+		border-radius: 12px;
+		max-width: 420px;
+		width: 100%;
+		padding: 24px 22px;
+		box-shadow: 0 10px 30px rgba(12, 24, 35, 0.06);
+		position: relative;
+		text-align: left;
+		color: #0f1724;
+		font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+		max-height: calc(100vh - 80px);
+		overflow: auto;
+	}
+
+	.horario-detalhado-content h3 {
+		margin: 0 0 10px 0;
+		font-size: 1.05rem;
+		color: #0f1724;
+		margin-bottom: 10px;
+		text-align: center;
+		font-weight: 600;
+		letter-spacing: 0.2px;
+	}
+
+	.horario-detalhado-content ul {
+		padding: 0;
+		margin: 12px 0 14px 0;
+		list-style: none;
+	}
+
+	.horario-detalhado-content li {
+		margin: 0 0 10px 0;
+		font-size: 0.98rem;
+		color: #242424;
+		padding-bottom: 8px;
+		border-bottom: 1px dashed rgba(15, 22, 35, 0.04);
+	}
+
+	.horario-detalhado-content li:last-child {
+		border-bottom: none;
+		margin-bottom: 0;
+		padding-bottom: 0;
+	}
+
+	.horario-detalhado-content p {
+		font-size: 0.96rem;
+		color: #c04040;
+		margin: 0;
+	}
+
+	.horario-close-btn {
+		position: absolute;
+		top: 12px;
+		right: 12px;
+		background: #f8fafc;
+		border: 1px solid rgba(15, 22, 35, 0.04);
+		border-radius: 50%;
+		width: 36px;
+		height: 36px;
+		font-size: 1.05rem;
+		color: #475569;
+		cursor: pointer;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 6px 16px rgba(12, 24, 35, 0.06);
+		transition: transform .14s ease, background .12s ease, color .12s ease;
+	}
+
+
+	.horario-close-btn:focus-visible {
+		outline: 2px solid rgba(50, 129, 220, 0.15);
+		outline-offset: 2px;
+	}
+
+	.fade-enter-active,
+	.fade-leave-active {
+		transition: opacity 0.2s;
+	}
+
+	.fade-enter,
+	.fade-leave-to {
+		opacity: 0;
+	}
+
+	.horario-entendi-btn {
+		display: block;
+		margin: 18px auto 0 auto;
+		background: #467fdb;
+		color: #fff;
+		border: none;
+		border-radius: 8px;
+		padding: 10px 26px;
+		font-size: 0.98rem;
+		font-weight: 600;
+		cursor: pointer;
+		box-shadow: 0 8px 20px rgba(12, 24, 35, 0.06);
+		transition: transform .12s ease, background .12s ease;
+	}
+
+
+	.horario-icone-relogio {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 8px;
+		font-size: 3rem;
+		color: #0f1724;
+		opacity: 0.9;
+		background: linear-gradient(180deg, rgba(48, 72, 110, 0.06), rgba(48, 72, 110, 0.03));
+		width: 72px;
+		height: 72px;
+		border-radius: 50%;
+		margin-left: auto;
+		margin-right: auto;
+		align-self: center;
+	}
+
+	.horario-icone-relogio i {
+		font-size: 1.6rem;
+		color: #0f1724;
+		line-height: 1;
+		display: inline-block;
+	}
+
+	@media (max-width: 420px) {
+		.horario-detalhado-content {
+			padding: 18px 16px;
+			max-width: 92%;
+		}
+
+		.horario-icone-relogio {
+			width: 64px;
+			height: 64px;
+			font-size: 2.6rem;
+		}
+
+		.horario-close-btn {
+			width: 34px;
+			height: 34px;
+			top: 10px;
+			right: 10px;
+		}
+	}
+
+	@keyframes modal-fade {
+		from {
+			opacity: 0;
+			transform: translateY(6px);
+		}
+
+		to {
+			opacity: 1;
+			transform: none;
+		}
+	}
+</style>
+
+</html>

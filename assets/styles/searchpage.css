@@ -1,0 +1,316 @@
+:root {
+    --bg: #faf9f6;
+    --muted: #6c6c6c;
+    --accent: #0a84ff;
+    --card: #ffffff;
+    --border: #e9e9e9;
+    --shadow: 0 8px 24px rgba(10, 10, 10, 0.06);
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #212121;
+    background: var(--bg);
+}
+
+.search-header {
+    text-align: center;
+    /* centraliza título e descrição */
+    margin: 0 auto 1.8rem;
+    display: block;
+    max-width: 1100px;
+    padding: 48px 20px 32px;
+    box-sizing: border-box;
+    background: transparent;
+    border-bottom: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.search-title {
+    font-size: 1.9rem;
+    font-weight: 500;
+    color: #111827;
+    margin: 0 0 8px;
+    letter-spacing: 0.4px;
+    line-height: 1.1;
+}
+
+.search-description {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin: 0 auto;
+    max-width: 720px;
+    font-family: inherit;
+    text-align: center;
+    line-height: 1.6;
+    opacity: 0.95;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    padding: 1.5rem 1rem 3rem;
+    max-width: 1100px;
+    margin-top: -30px;
+}
+
+/* Adicionado: estilos simples e elegantes para o filtro de preço */
+.price-filter-wrapper {
+    /* centraliza o filtro e evita que encoste na esquerda em telas largas */
+    margin: 12px auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: inherit;
+    max-width: 1100px;
+    /* limita largura para alinhar com o conteúdo principal */
+    padding: 0 20px;
+    /* distância lateral das bordas */
+    box-sizing: border-box;
+}
+
+
+.price-filter-label {
+    font-size: 0.95rem;
+    color: #222;
+    transition: color 0.2s;
+}
+
+
+.price-filter {
+    position: relative;
+    display: inline-block;
+}
+
+.price-select {
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 8px 36px 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    font-size: 0.95rem;
+    color: #222;
+    cursor: pointer;
+    min-width: 160px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.price-select:hover {
+    outline: 2px solid rgba(0, 123, 255, 0.15);
+    border-color: #a6c8ff;
+}
+
+.price-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    color: #777;
+    pointer-events: none;
+    font-size: 0.9rem;
+    transition: transform 0.2s;
+}
+
+.price-select.open .price-icon {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.price-filter-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* pequenos ajustes responsivos */
+@media (max-width: 520px) {
+
+    .price-select {
+        min-width: 100%;
+    }
+}
+
+/* em telas muito largas, garantir que o filtro permaneça alinhado ao centro do conteúdo */
+@media (min-width: 1200px) {
+    .price-filter-wrapper {
+        max-width: 1200px;
+        padding: 0 32px;
+    }
+}
+
+/* Adicionado: estilos para o toggle de promoções */
+.promo-toggle-wrapper {
+    margin: 8px auto 0 auto;
+    max-width: 1100px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+.promo-toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.97rem;
+    color: #222;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s;
+}
+
+
+.price-filter-wrapper.sticky-filter .price-filter-label,
+.promo-toggle-wrapper.sticky-filter .promo-toggle-label {
+    color: #111827;
+}
+
+.promo-toggle-checkbox {
+    display: none;
+}
+
+.promo-toggle-custom {
+    width: 36px;
+    height: 20px;
+    border-radius: 12px;
+    background: #dcdcdc;
+    position: relative;
+    transition: background 0.2s;
+    margin-right: 4px;
+    display: inline-block;
+}
+
+.promo-toggle-custom::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    transition: left 0.2s;
+}
+
+.promo-toggle-checkbox:checked+.promo-toggle-custom {
+    background: #54d354;
+}
+
+.promo-toggle-checkbox:checked+.promo-toggle-custom::before {
+    left: 18px;
+    background: #ffffff;
+}
+
+
+.promo-toggle-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    user-select: none;
+}
+
+@media (max-width: 520px) {
+    .promo-toggle-wrapper {
+        padding: 0 12px;
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .promo-toggle-wrapper {
+        max-width: 1200px;
+        padding: 0 32px;
+    }
+}
+
+
+
+.price-filter-wrapper.sticky-filter {
+    top: 70px;
+}
+
+/* Filtros fixos ao rolar */
+.price-filter-wrapper.sticky-filter {
+    position: fixed;
+    /* ajuste conforme altura do header */
+
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: #ffffff93;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1100px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 18px;
+    border: 1px solid #dadada;
+    /* Adicionado: espaço na borda superior */
+    padding-bottom: 18px;
+    /* já existente: espaço na borda inferior */
+    border-radius: 12px 12px 0 0;
+    backdrop-filter: blur(4px);
+    /* Adicionado: espaço na borda inferior para separar dos filtros internos */
+}
+
+
+
+.promo-toggle-wrapper.sticky-filter {
+    position: fixed;
+    /* ajuste conforme altura do header */
+
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background: #ffffff;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1100px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 18px;
+    border: 1px solid #dadada;
+    /* Adicionado: espaço na borda superior */
+    padding-bottom: 18px;
+    /* já existente: espaço na borda inferior */
+    border-radius: 0 0 12px 12px;
+    /* Adicionado: espaço na borda inferior para separar dos filtros internos */
+}
+
+.promo-toggle-wrapper.sticky-filter {
+    /* Para desktop, ajuste o topo para considerar apenas o padding-bottom do filtro de preço */
+    top: calc(70px + 48px + 18px);
+    /* 18px = padding-bottom do filtro de preço */
+    /* fica abaixo do filtro de preço se ambos forem sticky */
+}
+
+
+@media (max-width: 520px) {
+
+    .price-filter-wrapper.sticky-filter,
+    .promo-toggle-wrapper.sticky-filter {
+        max-width: 100%;
+        padding-left: 8px;
+        padding-right: 8px;
+        border-radius: 0 0 8px 8px;
+    }
+
+
+}
+
+
+/* Espaço reservado para evitar sobreposição do conteúdo ao usar sticky */
+.sticky-filter-spacer {
+    display: none;
+    width: 100%;
+    height: 0;
+}
+
+.sticky-filter-spacer.active {
+    display: block;
+    height: 56px;
+    /* ajuste conforme altura dos filtros */
+}

@@ -1,0 +1,88 @@
+
+## Documentação detalhada: pdp_api.php
+
+### Descrição Geral
+O arquivo `pdp_api.php` é uma API escrita em PHP responsável por fornecer informações detalhadas de um produto específico, além de sugerir produtos relacionados, a partir de um arquivo de dados JSON (`produtos.json`). Ele é utilizado principalmente para alimentar páginas de Produto (PDP - Product Detail Page) em aplicações web, retornando os dados em formato JSON para consumo via JavaScript/AJAX.
+
+---
+
+### Objetivo e Importância
+- **Centralização dos dados:** Permite que a aplicação busque informações de produtos de forma dinâmica, sem a necessidade de recarregar a página ou expor toda a base de produtos ao frontend.
+- **Segurança:** Realiza validação e sanitização do parâmetro `id`, evitando requisições inválidas ou maliciosas.
+- **Performance:** Retorna apenas os dados necessários do produto solicitado e de até 3 produtos relacionados, otimizando o tráfego de dados.
+- **Flexibilidade:** Facilita a manutenção e atualização dos dados de produtos, pois utiliza um arquivo JSON centralizado.
+- **Experiência do usuário:** Permite a exibição dinâmica de produtos relacionados, aumentando o engajamento e potencial de vendas.
+
+---
+
+### Funcionamento do Código
+1. **Cabeçalho e método HTTP:**
+	- Define o cabeçalho de resposta como JSON UTF-8.
+	- Permite apenas requisições GET. Outros métodos retornam erro 405.
+
+2. **Validação do parâmetro `id`:**
+	- Obtém o parâmetro `id` da query string, converte para inteiro e valida se é maior que zero.
+	- Caso inválido, retorna erro 400.
+
+3. **Leitura do arquivo de produtos:**
+	- Localiza o arquivo `produtos.json` de forma segura.
+	- Verifica se o arquivo existe e é legível. Caso contrário, retorna erro 500.
+	- Lê e decodifica o JSON em um array PHP.
+	- Se houver erro na leitura/decodificação, retorna erro 500.
+
+4. **Busca do produto:**
+	- Percorre o array de produtos e busca pelo produto cujo `id` corresponde ao solicitado.
+	- Se não encontrar, retorna erro 404.
+
+5. **Produtos relacionados:**
+	- Busca até 3 produtos que compartilhem ao menos uma categoria com o produto principal, excluindo ele mesmo.
+	- Se não houver produtos relacionados por categoria, seleciona até 3 outros produtos quaisquer (exceto o principal).
+
+6. **Resposta:**
+	- Retorna um objeto JSON com dois campos:
+	  - `produto`: os dados completos do produto solicitado.
+	  - `relacionados`: array com até 3 produtos relacionados.
+
+---
+
+### Exemplo de Uso
+Requisição:
+```
+GET /assets/php/pdp_api.php?id=123
+```
+Resposta (exemplo):
+```json
+{
+  "produto": {
+	 "id": 123,
+	 "nome": "Produto Exemplo",
+	 ...
+  },
+  "relacionados": [
+	 { "id": 45, ... },
+	 { "id": 67, ... }
+  ]
+}
+```
+
+---
+
+### Diferença e Benefícios
+- **Sem esta API:** O frontend teria que carregar todo o arquivo de produtos ou depender de páginas estáticas, dificultando a escalabilidade e manutenção.
+- **Com esta API:** O frontend pode buscar apenas os dados necessários, de forma rápida, segura e escalável, melhorando a experiência do usuário e facilitando integrações futuras (ex: apps, outros sistemas).
+
+---
+
+### Observações de Segurança
+- O código faz validação básica do parâmetro `id` e do arquivo de dados, mas não implementa autenticação ou limitação de requisições. Para ambientes de produção, recomenda-se adicionar camadas extras de segurança.
+
+---
+
+### Manutenção
+- Para alterar a estrutura dos dados retornados, basta modificar o array `$response`.
+- Para alterar a lógica de produtos relacionados, edite o filtro correspondente no código.
+
+---
+
+### Autor e Histórico
+- Código desenvolvido para uso interno do site, visando facilitar a integração entre frontend e backend de produtos.

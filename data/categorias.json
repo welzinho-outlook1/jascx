@@ -1,0 +1,45 @@
+{
+    "categorias": [
+        {
+            "id": 1,
+            "nome": "#Promoções"
+        },
+        {
+            "id": 2,
+            "nome": " Vestidos"
+           
+        },
+        {
+            "id": 3,
+            "nome": " Blusas"
+           
+        },
+        {
+            "id": 4,
+            "nome": " Calças"
+           
+        },
+        {
+            "id": 5,
+            "nome": " Jaquetas"
+        },
+        {
+            "id": 6,
+            "nome": " Macacões"
+        },
+        {
+            "id": 7,
+            "nome": " Camisetas"
+        },
+        {
+            "id": 8,
+            "nome": " Shorts"
+      
+        },
+        {
+            "id": 9,
+            "nome": "Saias"
+          
+        }
+    ]
+}

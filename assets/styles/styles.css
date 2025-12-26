@@ -1,0 +1,91 @@
+/* promoção, faixatop e demais estilos não relacionados à nav permanecem abaixo */
+.promotion {
+    position: relative;
+    overflow: hidden;
+    /* ajustado para esconder o blur escalado */
+    /* removida a background-image daqui: agora a imagem fica em ::before */
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 100% auto;
+    height: clamp(260px, 60vh, 560px);
+    max-height: 580px;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    padding: 12px 0;
+    /* z-index removido para evitar conflito com pseudo-elements */
+}
+
+/* imagem de fundo em ::before para poder aplicar blur */
+.promotion::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('../images/banner/image2.png');
+    background-repeat: repeat;
+    background-position: top center;
+    background-size: 420px;
+    /* blur mais leve */
+    transform: scale(1.01);
+    /* menos escala */
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* overlay escuro permanente (já presente, mantém a legibilidade) */
+.promotion::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.119);
+    /* ajuste opacidade para mais/menos escuridão */
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* mantém o texto acima de tudo */
+.promo-text {
+    position: relative;
+    z-index: 2;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 40;
+    font-size: clamp(1.6rem, 10vw, 2.8rem);
+    color: #ffffff;
+    padding: 100px 20px;
+    border-radius: 80px;
+    max-width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    line-height: 1.05;
+    transition: transform 200ms ease, box-shadow 200ms ease, opacity 200ms ease;
+    background: rgba(0, 0, 0, 0.293);
+    /* fallback: overlay escuro */
+    border: none;
+    box-shadow: 0 4px 40px rgba(0, 0, 0, 0.644);
+    /* backdrop-filter removido */
+    /* -webkit-backdrop-filter removido */
+    /* glassmorphism removido */
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.55);
+}
+
+/*  caso queira um subtítulo menor */
+.promo-text small {
+    display: block;
+    font-weight: 400;
+    font-size: 0.45em;
+    margin-top: 8px;
+    opacity: 0.95;
+    letter-spacing: 0.6px;
+}
+
+.destaques-desc {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #555555;
+    margin-bottom: 16px;
+    margin-inline: 20px;
+}

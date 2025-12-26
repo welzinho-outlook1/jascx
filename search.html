@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUVELE - Moda Feminina</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            background: #faf9f6;
+            font-family: sans-serif;
+        }
+
+        .search-bar--hidden {
+            display: none !important;
+        }
+
+        .breadcrumb-bg {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            background: #fafafa;
+            border: 1px solid #dbdbdb;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        @media (max-width: 900px) {
+            .breadcrumb-bg {
+                width: 100%;
+                left: 0;
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="./assets/styles/base-fundamental.css">
+    <link rel="shortcut icon" href="./assets/images/site-icon/fav.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./assets/styles/estilos-para-card-de-produtos.css">
+    <!-- CORREÇÃO: apontar para o arquivo correto de estilos da página de busca -->
+    <link rel="stylesheet" href="./assets/styles/searchpage.css">
+    <link rel="stylesheet" href="./assets/styles/footer(global).css">
+    <link rel="stylesheet" href="./assets/styles/categorias0x1.css">
+
+    <link rel="stylesheet" href="./assets/styles/pagination(globalstyle).css">
+    <style>
+        /* Opções do dropdown do filtro de preço ficam azuis ao passar o mouse */
+        .dropdown-menu li:hover {
+            background: #e3f0ff !important;
+            color: #1565c0 !important;
+        }
+    </style>
+    <!-- Vue.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+    <!-- mover Font Awesome para o head -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        crossorigin="anonymous">
+</head>
+
+<body>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-bg">
+        <p style="color: #002a47; margin: 0; font-size: 14px; padding: 10px 24px; ">
+            <a href="index.html" style="color: #005999;">Início</a> / Produtos
+        </p>
+    </div>
+    <header class="search-header">
+
+        <h1 class="search-title">Resultados da busca</h1>
+
+        <p class="search-description">Encontre os produtos perfeitos para você! Filtre os resultados ou navegue pelas
+            sugestões abaixo.</p>
+        <div class="categorias-wrapper" aria-label="Categorias de produtos">
+            <div id="categoriasList" class="categorias" role="list" tabindex="0"
+                aria-label="Categorias (deslize para ver mais)">
+                <div class="search-icon" aria-hidden="true">
+                    <!-- NAV removido: será injetado por ../nav(globalcode).js -->
+    </header>
+
+    <!-- mantenha seu ícone atual aqui (ex.: <i class="fa fa-search"></i>) -->
+    </div>
+
+    <!-- Início: filtro de preço (abaixo das categorias) -->
+    <div id="vue-price-filter" class="price-filter-wrapper" aria-hidden="false">
+        <span class="price-filter-label">Filtrar por preço</span>
+        <div class="price-filter" role="group" aria-label="Filtro de preço">
+            <div class="dropdown" @click="toggleDropdown" :tabindex="0" @blur="closeDropdown"
+                style="position:relative;">
+                <div class="price-select" :class="{ 'open': dropdownOpen }"
+                    style="display:flex;align-items:center;cursor:pointer;min-width:160px;">
+                    <span>{{ selectedLabel }}</span>
+                    <i class="fa-solid fa-chevron-down price-icon" aria-hidden="true" style="margin-left:auto;"></i>
+                </div>
+                <ul v-show="dropdownOpen" class="dropdown-menu"
+                    style="position:absolute;z-index:20;left:0;right:0;background:#fff;border:1px solid #e0e0e0;border-radius:8px;margin-top:4px;box-shadow:0 2px 8px rgba(0,0,0,0.08);padding:0;list-style:none;">
+                    <li v-for="option in options" :key="option.value" @click.stop="selectOption(option)"
+                        style="padding:8px 16px;cursor:pointer;"
+                        :style="{background:selected===option.value?'#f0f0f0':'#fff'}">
+                        {{ option.label }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Fim: filtro de preço -->
+
+    <!-- Início: toggle Promoções -->
+    <div class="promo-toggle-wrapper" aria-hidden="false">
+        <label for="promoToggle" class="promo-toggle-label">
+            <input type="checkbox" id="promoToggle" class="promo-toggle-checkbox" aria-label="Mostrar apenas promoções">
+            <span class="promo-toggle-custom"></span>
+            Priorizar promoções
+        </label>
+    </div>
+    <!-- Fim: toggle Promoções -->
+
+    <form id="siteSearch" class="search-bar search-bar--hidden" role="search" aria-label="Pesquisar no site"
+        onsubmit="return false;">
+        <input id="searchInput" type="search" placeholder="Pesquisar..." aria-label="Pesquisar" />
+        <button id="searchSubmit" type="button" aria-label="Buscar">Buscar</button>
+        <div id="searchResults" class="search-results" role="listbox" aria-hidden="true"></div>
+    </form>
+
+    <div class="container">
+        <div id="produtosContainer" class="produtos-container" role="list"></div>
+        <div id="produtosErro" class="produtos-erro" role="status" aria-live="polite" hidden>
+            Não foi possível carregar os produtos no momento.
+        </div>
+
+
+        <div id="pagination" class="pagination" aria-label="Paginação de produtos">
+            <button id="prevPage" class="pagination-btn" disabled>&lt; Anterior</button>
+            <span id="paginationInfo" class="pagination-info">1 de 1</span>
+            <button id="nextPage" class="pagination-btn" disabled>Próximo &gt;</button>
+        </div>
+
+    </div>
+
+
+    <!-- Container para os cartões de produto (será preenchido pelo script abaixo) -->
+
+
+    <!-- pr-def deve ser carregado antes de nav.js -->
+    <script src="./assets/javascript/pr-def.js"></script>
+    <script src="https://unpkg.com/dompurify@2.3.10/dist/purify.min.js"></script>
+    <script src="./assets/javascript/xss.js"></script>
+    <!-- injeta o markup da nav (com ajustes de href e estilos injetados) -->
+    <script src="./assets/javascript/nav(globalcode).js"></script>
+    <!-- lógica do menu/search que depende de pr-def.js -->
+    <script src="./assets/javascript/nav.js"></script>
+    <script src="./assets/javascript/sys-ger-prod.js"></script>
+    <script src="./assets/javascript/footer(global).js"></script>
+
+
+    <style>
+
+    </style>
+
+    <!-- Script para filtrar por categoria (exemplo básico) -->
+    <script>
+        // Remover ocultação da barra de pesquisa após o carregamento dos estilos
+        window.addEventListener('load', function () {
+            document.getElementById('siteSearch').classList.remove('search-bar--hidden');
+        });
+        // Renderiza a trilha de migalhas de pão
+        function renderBreadcrumb() {
+            document.getElementById('breadcrumb').innerHTML =
+                '';
+        }
+    </script>
+    <script src="./assets/javascript/categorias0x1.js"></script>
+    <script src="./assets/javascript/searchpage.js"></script>
+    <!-- Vue price filter logic -->
+    <script>
+        var priceFilterVm = new Vue({
+            el: '#vue-price-filter',
+            data: {
+                dropdownOpen: false,
+                selected: 'all',
+                options: [
+                    { value: 'all', label: 'Todos os preços' },
+                    { value: '0-50', label: 'Até R$50' },
+                    { value: '50-100', label: 'R$50 - R$100' },
+                    { value: '100-200', label: 'R$100 - R$200' },
+                    { value: '200+', label: 'Acima de R$200' },
+                    { value: 'price-asc', label: 'Menor para maior' },
+                    { value: 'price-desc', label: 'Maior para menor' }
+                ]
+            },
+            computed: {
+                selectedLabel() {
+                    const found = this.options.find(o => o.value === this.selected);
+                    return found ? found.label : '';
+                }
+            },
+            methods: {
+                toggleDropdown() {
+                    this.dropdownOpen = !this.dropdownOpen;
+                },
+                closeDropdown() {
+                    this.dropdownOpen = false;
+                },
+                selectOption(option) {
+                    this.selected = option.value;
+                    // Fecha o dropdown imediatamente ao selecionar
+                    this.dropdownOpen = false;
+                    // Disparar evento global para outros scripts ouvirem
+                    const event = new CustomEvent('vue-price-filter', { detail: { value: option.value } });
+                    window.dispatchEvent(event);
+                    // Levar usuário ao topo ao trocar filtro
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+        });
+        // Fecha o dropdown do filtro de preço ao rolar a tela
+        window.addEventListener('scroll', function () {
+            if (priceFilterVm && priceFilterVm.dropdownOpen) {
+                priceFilterVm.dropdownOpen = false;
+            }
+        });
+    </script>
+    <!-- /Vue price filter logic -->
+    <!-- Removido filtro antigo: <script src="./assets/javascript/filterprice(searchpage).js"></script> -->
+    <script src="./assets/javascript/filterfix(searchpage).js"></script>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.querySelector('.nav');
+            if (nav) {
+                nav.classList.toggle('nav--open');
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,329 @@
+.produto-descricao-pequena {
+    font-size: 13px;
+    color: #888;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: -6px;
+    line-height: 1.3;
+    min-height: 18px;
+    /* Limita visualmente a altura para evitar cards desiguais */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.produtos-destaque h2 {
+    font-weight: 100;
+    text-align: center;
+    font-size: 29px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #000000;
+    margin-bottom: 8px;
+}
+
+/* Layout principal: desktop padrão com 3 colunas */
+.produtos-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(240px, 1fr));
+    /* padrão: 2 colunas */
+    gap: 24px;
+    padding: 8px 20px 40px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Cards */
+.produto-card {
+    position: relative;
+    /* permite posicionar badges em relação ao card */
+    z-index: 0;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Badge de cores disponíveis */
+.produto-cores-badge {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: #ffffff;
+    color: #875617;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px 4px 8px;
+    border-radius: 12px;
+    box-shadow: 0 1px 5px rgba(136, 90, 0, 0.06);
+    z-index: 10;
+    border: 1px solid #fdcf8c;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.circle-color-rainbow {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: conic-gradient(#f44336 0% 14%,
+            #ffeb3b 14% 28%,
+            #4caf50 28% 40%,
+            #2196f3 40% 60%,
+            #9c27b0 60% 80%,
+            #f44336 80% 100%);
+    border: 1.5px solid #fff;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.07);
+}
+
+/* Estado esgotado: mantém layout, mas indica indisponibilidade */
+.produto-cores-badge.esgotado {
+    background: #ff6e6e;
+    color: #fcfcfc;
+    border-color: #f5b3b3;
+    box-shadow: 0 1px 5px rgba(160, 20, 20, 0.06);
+}
+
+/* Imagem: usa aspect-ratio quando disponível; mantém fallback com padding-bottom */
+.produto-imagem-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 133%;
+    overflow: hidden;
+    background: #f5f5f5;
+    aspect-ratio: 3 / 4;
+}
+
+.produto-imagem {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    /* garante que a imagem fique abaixo de badges posicionados */
+}
+
+.desconto-badge {
+    display: none;
+    /* antigo estilo absoluto removido; manter oculto caso ainda exista no HTML */
+}
+
+/* Badge de desconto — usa o mesmo visual do PDP e fica ao lado do preço */
+.pdp-discount-badge {
+    display: inline-block;
+    margin-left: 8px;
+    background: #ffe5e5;
+    color: #ff5252;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    line-height: 1;
+    vertical-align: middle;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.produto-info {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+}
+
+.produto-nome {
+    font-size: 14px;
+    font-weight: 500;
+    color: #666666;
+    text-align: center;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.produto-preco-wrapper {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.produto-preco-original {
+    font-size: 13px;
+    color: #999999;
+    text-decoration: line-through;
+    margin-bottom: 4px;
+}
+
+.produto-preco-atual {
+    font-size: 18px;
+    font-weight: 600;
+    color: #48875a;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.produto-botao {
+    width: 100%;
+    padding: 12px 16px;
+    background: none;
+    color: #4879d5;
+    border: none;
+    font-size: 14px;
+    font-weight: 200;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: auto;
+}
+
+.produto-botao a {
+    color: #ededed;
+    text-decoration: none;
+}
+
+.produto-botao:hover {
+    text-decoration: underline;
+}
+
+/* -------------------------
+   Media queries simplificadas
+   ------------------------- */
+
+/* 3 colunas para tablets e notebooks médios */
+@media (min-width: 769px) and (max-width: 1023px) {
+    .produtos-container {
+        grid-template-columns: repeat(3, minmax(200px, 1fr));
+        gap: 24px;
+        padding: 6px 20px 36px 20px;
+    }
+
+    .produto-nome {
+        font-size: 14px;
+    }
+
+    .produto-preco-atual {
+        font-size: 18px;
+    }
+
+    .produto-botao {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+}
+
+/* 4 colunas para telas grandes (desktop) */
+@media (min-width: 1024px) {
+    .produtos-container {
+        grid-template-columns: repeat(4, minmax(200px, 1fr));
+        gap: 24px;
+        padding: 8px 20px 40px 20px;
+        max-width: 1200px;
+    }
+}
+
+/* Para telas menores (mobile): sempre 2 colunas */
+@media (max-width: 768px) {
+    .produtos-container {
+        grid-template-columns: repeat(2, minmax(140px, 1fr));
+        gap: 12px;
+        padding: 12px 12px;
+    }
+
+    .produto-imagem-wrapper {
+        padding-bottom: 0;
+        aspect-ratio: 3 / 4;
+    }
+
+    .produto-nome {
+        font-size: clamp(12px, 2.6vw, 13px);
+    }
+
+    .produto-preco-original {
+        font-size: clamp(11px, 2.4vw, 12px);
+    }
+
+    .produto-preco-atual {
+        font-size: clamp(14px, 4vw, 16px);
+    }
+
+    .produto-botao {
+        padding: clamp(8px, 2.6vw, 10px) clamp(10px, 3.2vw, 12px);
+        font-size: clamp(12px, 3.2vw, 13px);
+    }
+
+    .desconto-badge {
+        padding: clamp(6px, 2.4vw, 8px) clamp(8px, 3vw, 10px);
+        font-size: clamp(11px, 2.6vw, 12px);
+    }
+}
+
+/* Ajuste extra para telas muito estreitas */
+@media (max-width: 360px) {
+    .produtos-container {
+        grid-template-columns: repeat(2, minmax(120px, 1fr));
+        gap: 8px;
+        padding: 8px 8px;
+    }
+
+    .produto-imagem-wrapper {
+        aspect-ratio: 4 / 5;
+    }
+
+    .produto-nome {
+        font-size: clamp(11px, 3.2vw, 12px);
+    }
+
+    .produto-preco-atual {
+        font-size: clamp(13px, 4.2vw, 15px);
+    }
+
+    /* novo-badge removed from narrow-media; global rules added at the end of this file */
+
+    .produto-botao {
+        font-size: clamp(11px, 3.6vw, 12px);
+        padding: 8px 8px;
+    }
+}
+
+/* Badge "Novo" — elegante, minimal e formal (global) */
+.novo-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(17, 17, 17, 0.85);
+    /* discreto e de alto contraste */
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 11px;
+    padding: 4px 7px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    z-index: 20;
+    /* garante visibilidade acima da imagem */
+    pointer-events: none;
+    /* não bloqueia cliques no card */
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    backdrop-filter: blur(4px);
+    /* sutil, moderno */
+    -webkit-backdrop-filter: blur(4px);
+}
+
+@media (max-width: 480px) {
+    .novo-badge {
+        padding: 3px 6px;
+        font-size: 10px;
+    }
+}
